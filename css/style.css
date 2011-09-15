@@ -1,0 +1,12 @@
+body {
+    background: #fbfbfb url('../img/ski.jpg');
+    background-size:100%;
+    color: #eee;
+    font: 1.6em 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+#page {
+    margin: 0 auto;
+    width: 728px;
+}
