@@ -1,12 +1,72 @@
 body {
+    /*    
     background: #fbfbfb url('../img/ski.jpg');
     background-size:100%;
     color: #eee;
-    font: 1.6em 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    */
+    font: 1.4em 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
 }
 
+#links {
+    display: block;
+    height: 60px;
+    min-height: 60px;
+    list-style-type: none;
+    text-align:center;
+    -webkit-padding-start: 0px;
+}
+
+#links li{
+    display: inline-block;
+    margin: 0 0.0em;
+    width: 50px;
+}
+
+/*
+#links li:hover {
+    opacity: 0.7;
+}*/
+
+.linkimg a {
+    display: block;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -khtml-background-size : 100% 100%;
+    -moz-background-size: 100% 100%;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+}
+
+#quora-link a {
+    background: url('../img/quora_gs.png') no-repeat center center;
+}
+#quora-link a:hover {
+    background: url('../img/quora.png') no-repeat center center;
+}
+
+#crossvalidated-link a {
+    background: url('../img/crossvalidated_gs.png') no-repeat center center;
+}
+#crossvalidated-link a:hover {
+    background: url('../img/crossvalidated.png') no-repeat center center;
+}
+
+#twitter-link a {
+    background: url('../img/twitter_gs.png') no-repeat center center;
+}
+#twitter-link a:hover {
+    background: url('../img/twitter.png') no-repeat center center;
+}
+
+#facebook-link a {
+    background: url('../img/facebook_gs.png') no-repeat center center;
+}
+#facebook-link a:hover {
+    background: url('../img/facebook.png') no-repeat center center;
+}
+
 #page {
-    margin: 0 auto;
-    width: 728px;
+    margin: auto;
 }
