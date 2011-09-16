@@ -40,6 +40,9 @@ body {
 }
 
 #quora-link a {
+    background: url('../img/quora.png') no-repeat center center;
+}
+#quora-link a:link {
     background: url('../img/quora_gs.png') no-repeat center center;
 }
 #quora-link a:hover {
@@ -47,6 +50,9 @@ body {
 }
 
 #crossvalidated-link a {
+    background: url('../img/crossvalidated.png') no-repeat center center;
+}
+#crossvalidated-link a:link {
     background: url('../img/crossvalidated_gs.png') no-repeat center center;
 }
 #crossvalidated-link a:hover {
@@ -54,6 +60,9 @@ body {
 }
 
 #twitter-link a {
+    background: url('../img/twitter.png') no-repeat center center;
+}
+#twitter-link a:link {
     background: url('../img/twitter_gs.png') no-repeat center center;
 }
 #twitter-link a:hover {
@@ -61,6 +70,9 @@ body {
 }
 
 #facebook-link a {
+    background: url('../img/facebook.png') no-repeat center center;
+}
+#facebook-link a:link {
     background: url('../img/facebook_gs.png') no-repeat center center;
 }
 #facebook-link a:hover {
@@ -68,6 +80,9 @@ body {
 }
 
 #linkedin-link a {
+    background: url('../img/linkedin.png') no-repeat center center;
+}
+#linkedin-link a:link {
     background: url('../img/linkedin_gs.png') no-repeat center center;
 }
 #linkedin-link a:hover {
@@ -75,6 +90,9 @@ body {
 }
 
 #googleplus-link a {
+    background: url('../img/googleplus.png') no-repeat center center;
+}
+#googleplus-link a:link {
     background: url('../img/googleplus_gs.png') no-repeat center center;
 }
 #googleplus-link a:hover {
