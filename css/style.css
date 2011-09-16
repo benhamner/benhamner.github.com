@@ -67,6 +67,13 @@ body {
     background: url('../img/facebook.png') no-repeat center center;
 }
 
+#linkedin-link a {
+    background: url('../img/linkedin_gs.png') no-repeat center center;
+}
+#linkedin-link a:hover {
+    background: url('../img/linkedin.png') no-repeat center center;
+}
+
 #page {
     margin: auto;
 }
