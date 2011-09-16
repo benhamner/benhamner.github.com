@@ -74,6 +74,13 @@ body {
     background: url('../img/linkedin.png') no-repeat center center;
 }
 
+#googleplus-link a {
+    background: url('../img/googleplus_gs.png') no-repeat center center;
+}
+#googleplus-link a:hover {
+    background: url('../img/googleplus.png') no-repeat center center;
+}
+
 #page {
     margin: auto;
 }
