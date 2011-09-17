@@ -1,4 +1,5 @@
 body {
+    background: #efefef;
     /*    
     background: #fbfbfb url('../img/ski.jpg');
     background-size:100%;
@@ -6,6 +7,18 @@ body {
     */
     font: 1.4em 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
+}
+
+section {
+     margin-bottom: 35px;
+     padding: 30px;
+     background-color: #fefefe;
+     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+     border-radius: 10px;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
 }
 
 #links {
@@ -16,7 +29,8 @@ body {
     text-align:center;
     -webkit-padding-start: 0px;
     padding: 0px;
-    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 1.0em;
 }
 
 #links li{
@@ -79,6 +93,13 @@ body {
     background: url('../linkimg/googleplus.png') no-repeat center center;
 }
 
+#runkeeper-link a {
+    background: url('../linkimg/runkeeper_gs.png') no-repeat center center;
+}
+#runkeeper-link a:hover {
+    background: url('../linkimg/runkeeper.png') no-repeat center center;
+}
+
 #preloadimg {
    position: absolute;
    overflow: hidden;
@@ -90,4 +111,5 @@ body {
 
 #page {
     margin: auto;
+    width: 700px;
 }
