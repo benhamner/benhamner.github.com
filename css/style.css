@@ -15,7 +15,8 @@ body {
     list-style-type: none;
     text-align:center;
     -webkit-padding-start: 0px;
-    margin-top: 0em;
+    padding: 0px;
+    margin: 0px;
 }
 
 #links li{
@@ -23,11 +24,6 @@ body {
     margin: 0 0.0em;
     width: 50px;
 }
-
-/*
-#links li:hover {
-    opacity: 0.7;
-}*/
 
 .linkimg a {
     display: block;
