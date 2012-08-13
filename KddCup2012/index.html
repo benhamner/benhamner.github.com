@@ -1,0 +1,425 @@
+<!doctype html>  
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	
+	<title>KDD Cup 2012 - Postgame With Ben Hamner</title>
+
+	<meta name="description" content="KDD Cup 2012 - Postgame With Ben Hamner">
+	<meta name="author" content="Ben Hamner">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/theme/default.css">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<script>
+		// If the query includes print-pdf we'll use the PDF print sheet
+		var printStyle = window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper';
+		document.write( '<link rel="stylesheet" href="css/print/' + printStyle + '.css" type="text/css" media="print">' );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Used to fade in a background when a specific slide state is reached -->
+<div class="state-background"></div>
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+	<div valign="center">
+	<h2>Postgame with <a href="http://twitter.com/benhamner"><a>@benhamner</a></h2>
+
+    <h3>A Meta-Analysis of <span style="color: #3db9e6">Kaggle</span> Competitions</h3>
+
+	<!--<img width="300" src="img/kaggle.png"></img>-->
+	</div>
+</section>
+	
+<section>
+	<h2>Outline</h2>
+	<br />
+	<ul>
+		<li class="fragment"><span style="color: #3db9e6">Kaggle</span> Competition Summary and Statistics</li>
+		<li class="fragment">Leaderboard Dynamics, Overfitting, and Correlation</li>
+		<li class="fragment">Ensembling Winning Solutions</li>
+		<li class="fragment">Evaluation Metrics</li>
+ 	</ul>
+</section>
+
+<section>
+	<h2><span style="color: #3db9e6">Kaggle</span> Statistics</h2>
+	<br />
+	<ul>
+		<li class="fragment"><span style="color: #3db9e6">51,774</span> registered users</li>
+		<li class="fragment"><span style="color: #3db9e6">9,596</span> users have made at least one submission</li>
+		<li class="fragment"><span style="color: #3db9e6">166,526</span> total submissions.</li>
+		<li class="fragment"><span style="color: #3db9e6">38</span> public competitions completed</li>
+		<li class="fragment"><span style="color: #3db9e6">59</span> classroom competitions completed</li>
+	</ul>
+</section>
+
+<section>
+	<h2><span style="color: #3db9e6">Kaggler</span> Locations</h2>
+	<img width="800" src="img/map.png"></img>
+</section>
+
+<section>
+	<h2><span style="color: #3db9e6">38</span> Completed Competitions</h2>
+	<br />
+	<ul>
+		<li class="fragment"><span style="color: #3db9e6">15</span> Classification Problems
+		<ul>
+			<li><span style="color: #3db9e6">9</span> Area Under the ROC (AUC)</li>
+			<li><span style="color: #3db9e6">5</span> Logarithmic Loss</li>
+			<li><span style="color: #3db9e6">1</span> Categorization Accuracy</li>
+		</ul></li>
+		<li class="fragment"><span style="color: #3db9e6">15</span> Regression Problems
+		<ul>
+			<li><span style="color: #3db9e6">5</span> Root Mean Squared Error (RMSE)</li>
+			<li><span style="color: #3db9e6">2</span> Root Mean Squared Log Error (RMSLE)</li>
+			<li><span style="color: #3db9e6">2</span> Mean Absolute Error (MAE)</li>
+			<li><span style="color: #3db9e6">6</span> Other</li>
+		</ul></li>
+		<li class="fragment"><span style="color: #3db9e6">3</span> Recommendation Problems (MAP@K)</li>
+		<li class="fragment"><span style="color: #3db9e6">5</span> Other</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Competitions We'll Focus On <span style="color: #3db9e6">Today</span></h2>
+	<br />
+	<ul>
+		<li class="fragment">Predicting a Biological Response <span style="color: grey">(Binary Classification)</span></li>
+		<li class="fragment">What Do You Know? <span style="color: grey">(Binary Classification)</span></span></li>
+		<li class="fragment">Photo Quality Prediction <span style="color: grey">(Binary Classification)</span></li>
+		<li class="fragment">Give Me Some Credit <span style="color: grey">(Binary Classification)</span></li>
+		<li class="fragment">2012 KDD Cup Track 1 <span style="color: grey">(Relevance Prediction)</span></li>
+		<li class="fragment">2012 KDD Cup Track 2 <span style="color: grey">(Regression)</span></li>
+		<li class="fragment">Mapping Dark Matter <span style="color: grey">(Regression)</span></li>
+ 	</ul>
+</section>
+
+<section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<br />
+		<p class="fragment">How does the leaderboard evolve as the competition progresses?</p><br />
+		<p class="fragment" align="left"><span style="color: #3db9e6"><strong>Public Leaderboard:</strong></span> The split of the test set that competition participants see real-time feedback on over the course of the competition.</p>
+		<p class="fragment" align="left"><span style="color: #3db9e6"><strong>Private Leaderboard:</strong></span> The split of the test set that is used to determine the competition winners and estimate the generalization error. Participants do not see feedback on this during the competition.</p>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/bioresponse.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/WhatDoYouKnow.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/PhotoQualityPrediction.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/GiveMeSomeCredit.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/kddcup2012-track1.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/kddcup2012-track2.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Progress</h2>
+		<img width="800" src="img/leaderboard_progress/mdm.png"></img>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<br />
+		How correlated are the scores for the public and private leaderboards, across all submissions?
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/bioresponse.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/WhatDoYouKnow.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/PhotoQualityPrediction.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/GiveMeSomeCredit.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/kddcup2012-track1.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/kddcup2012-track2.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation</h2>
+		<img width="800" src="img/public_private_correlation/mdm.png"></img>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<br />
+		How correlated are the scores for the public and private leaderboards, for the top 500 submissions?
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/bioresponse.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/WhatDoYouKnow.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/PhotoQualityPrediction.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/GiveMeSomeCredit.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/kddcup2012-track1.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/kddcup2012-track2.png"></img>
+	</section>
+	<section>
+		<h2>Leaderboard Correlation: Top 500</h2>
+		<img width="800" src="img/public_private_correlation_top500/mdm.png"></img>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Ensembling the Top Entries</h2>
+		<br />
+		Is there evidence that we haven't hit the frontier of possible performance?
+	</section>
+	<section>
+		<h2>Ensemble</h2>
+		<img width="800" src="img/ensemble/bioresponse.png"></img>
+	</section>
+	<section>
+		<h2>Ensemble</h2>
+		<img width="800" src="img/ensemble/WhatDoYouKnow.png"></img>
+	</section>
+	<section>
+		<h2>Ensemble</h2>
+		<img width="800" src="img/ensemble/PhotoQualityPrediction.png"></img>
+	</section>
+	<section>
+		<h2>Ensemble</h2>
+		<img width="800" src="img/ensemble/GiveMeSomeCredit.png"></img>
+	</section>
+	<section>
+		<h2>Ensemble</h2>
+		<img width="800" src="img/ensemble/kddcup2012-track1.png"></img>
+	</section>
+	<section>
+		<h2>Ensemble</h2>
+		<img width="800" src="img/ensemble/mdm.png"></img>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Top Submission Correlation</h2>
+		<br />
+		How correlated are the best submissions from the top two teams?
+	</section>
+	<section>
+		<h2>Top Submission Correlation</h2>
+		<img width="800" src="img/top_submission_correlation/bioresponse.png"></img>
+	</section>
+	<section>
+		<h2>Top Submission Correlation</h2>
+		<img width="800" src="img/top_submission_correlation/WhatDoYouKnow.png"></img>
+	</section>
+	<section>
+		<h2>Top Submission Correlation</h2>
+		<img width="800" src="img/top_submission_correlation/PhotoQualityPrediction.png"></img>
+	</section>
+	<section>
+		<h2>Top Submission Correlation</h2>
+		<img width="800" src="img/top_submission_correlation/GiveMeSomeCredit.png"></img>
+	</section>
+</section>
+
+
+<section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<br />
+		How are different evaluation metrics related?
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/bioresponse_LogLoss_MSE.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/bioresponse_LogLoss_AUC.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/bioresponse_LogLoss_MAE.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/bioresponse_LogLoss_Accuracy.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/PhotoQualityPrediction_CappedBinomialDeviance_MSE.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/PhotoQualityPrediction_CappedBinomialDeviance_AUC.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/PhotoQualityPrediction_CappedBinomialDeviance_MAE.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/PhotoQualityPrediction_CappedBinomialDeviance_Accuracy.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/WhatDoYouKnow_CappedBinomialDeviance_MSE.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/WhatDoYouKnow_CappedBinomialDeviance_AUC.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/WhatDoYouKnow_CappedBinomialDeviance_MAE.png"></img>
+	</section>
+	<section>
+		<h2>Evaluation Metrics</h2>
+		<img width="800" src="img/metric_comparison/WhatDoYouKnow_CappedBinomialDeviance_Accuracy.png"></img>
+	</section>
+</section>
+
+<section>
+	<h1>Questions</h1>
+	<img width="300" src="img/questions.jpg"></img>
+</section>
+
+</div>
+
+<!-- The navigational controls UI -->
+<aside class="controls">
+	<a class="left" href="#">&#x25C4;</a>
+	<a class="right" href="#">&#x25BA;</a>
+	<a class="up" href="#">&#x25B2;</a>
+	<a class="down" href="#">&#x25BC;</a>
+</aside>
+
+<!-- Presentation progress bar -->
+<div class="progress"><span></span></div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+
+<script>
+head.ready( function() {
+
+	// Fires when a slide with data-state=customevent is activated
+	Reveal.addEventListener( 'customevent', function() {
+		console.log( '"customevent" has fired' );
+	} );
+
+	// Fires each time a new slide is activated
+	Reveal.addEventListener( 'slidechanged', function( event ) {
+		// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+	} );
+
+	// Full list of configuration options available here:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		
+		transition: Reveal.getQueryHash().transition || 'default' // default/cube/page/concave/linear(2d)
+	});
+
+	// Load highlight.js for syntax highlighting of code samples
+	head.js( 'lib/js/highlight.js', function() { 
+		hljs.initHighlightingOnLoad(); 
+	} );
+
+} );
+
+// Scripts that should be loaded before initializing
+var scripts = [];
+
+// If the browser doesn't support classList, load a polyfill
+if( !document.body.classList ) {
+	head.js( 'lib/js/classList.js' );
+}
+
+// Load markdown parser if there are slides defined using markdown
+if( document.querySelector( '[data-markdown]' ) ) {
+	scripts.push( 'lib/js/showdown.js' );
+	scripts.push( 'lib/js/data-markdown.js' );
+}
+
+scripts.push( 'js/reveal.min.js' );
+
+// If we're runnning the notes server we need to include some additional JS
+// TODO Is there a better way to determine if we're running the notes server?
+if( window.location.host === 'localhost:1947' ) {
+	scripts.push( 'socket.io/socket.io.js' );
+	scripts.push( 'plugin/speakernotes/client.js' );
+}
+
+// Load the scripts and, when completed, initialize reveal.js
+head.js.apply( null, scripts );
+
+</script>
+
+</body>
+</html>
