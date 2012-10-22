@@ -1,0 +1,114 @@
+
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="Markdown.Converter.js"></script>
+	<script src="Markdown.Sanitizer.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css?v=645537e2c00d">
+</head>
+<body>
+
+
+<div id="container" class="container">
+<div id="content" class="content">
+<p>
+	<h1>Kaggle StackOverflow Competition - Public Leaderboard Results</h1>
+	<h2>Show the top 1000 questions that the best model on the public leaderboard predicted as the most likely to be closed:</h2>
+	<h2>
+	<ul>
+    	<li><a id="OpenLink" href="#open"> Questions Open as of 8/14/2012 </a></li>
+    	<li><a id="ClosedLink" href="#closed"> Questiosn Closed as of 8/14/2012 </a></li>
+		<li><a id="BothLink" href="#all"> 1000 Questions Most Likely to Be Closed </a></li>
+	</ul>
+</h2>
+</p>
+<div id="mainbar" class="ask-mainbar">
+</div></div></div>
+
+<script>
+var converter = new Markdown.getSanitizingConverter();
+document.write("");
+
+function appendQuestion(html, row) {
+	html.push("<hr /><br />")
+	html.push("Title: <strong><a href=\"http://www.stackoverflow.com/questions/");
+	html.push(row.id);
+	html.push("\">");
+	html.push(row.title);
+	html.push("</a></strong><br /><br />");
+	html.push("Actually: ");
+	if (row.open=="true") {
+		html.push("<strong style='color:green'>Open</strong> (as of 8/14/2012)<br />")
+	}
+	else {
+		html.push("<strong style='color:red'>Closed</strong><br />")
+	}
+	html.push("Predicted Close Probability: <strong>");
+	html.push(row.probability_closed);
+	html.push("%</strong><br /><br /><div class=\"wmd-preview\">");
+	html.push(converter.makeHtml(row.body));
+	html.push("</div><br /><br />");
+}
+
+function showOpenAndClosedQuestions(data) {
+	var mainbar = document.getElementById("mainbar");
+	var html = [];
+	for (var i=0; i<data.length; i++) {	
+		appendQuestion(html, data[i]);
+	}
+	mainbar.innerHTML = html.join("");	
+}
+
+function showQuestions(data, is_open) {
+	var mainbar = document.getElementById("mainbar");
+	var html = [];
+	for (var i=0; i<data.length; i++) {	
+		if (data[i].open==is_open) {
+			appendQuestion(html, data[i]);
+		}
+	}
+	mainbar.innerHTML = html.join("");	
+}
+
+function showAllQuestions() {
+	$.getJSON("data.json", function(data) {
+		showOpenAndClosedQuestions(data);
+	});	
+}
+
+function showOpenQuestions() {
+	$.getJSON("data.json", function(data) {
+		showQuestions(data, "true");
+	});
+}
+
+
+function showClosedQuestions() {
+	$.getJSON("data.json", function(data) {
+		showQuestions(data, "false");
+	});
+}
+
+function updateLocationFromHash() {
+	switch(window.location.hash) {
+		case "#open":
+			showOpenQuestions();
+			break;
+		case "#closed":
+			showClosedQuestions();
+			break;
+		case "#all":
+			showAllQuestions();
+			break;
+		default:
+			window.location.hash = "#all";
+	}
+}
+
+$(window).bind('hashchange', function() {
+	updateLocationFromHash();
+});
+
+updateLocationFromHash();
+
+</script>
+</body>
