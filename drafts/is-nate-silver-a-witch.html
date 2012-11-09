@@ -1,0 +1,91 @@
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Is Nate Silver a Witch?</title>
+    <meta name="author" content="Ben Hamner" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <style type="text/css">
+    body {
+        background-color: #eee; /* I took an oath never to use flat white backgrounds. */
+        text-rendering: optimizeLegibility;
+        color: #222;
+        margin: 0px;
+        padding: 0px;
+        margin-top: 10%;
+        width: 100%;
+        font-family: 'Alegreya'; /* Do you speak German? No? Then STOP USING HELVETICA. */
+        text-align: center;
+    }
+
+    #main {
+        margin: auto;
+        width: 44em;
+        text-align: center;
+    }
+
+    h1 {
+        font-weight: normal;
+        font-size: 120px;
+        margin: 0px;
+    }
+
+    h2 {
+        color: #666;
+        font-weight: normal;
+        font-size: 72px;
+        margin: 0px;
+    }
+
+    h3 {
+        color: #999;
+        font-weight: normal;
+        font-size: 48px;
+        margin: 0px;
+    }
+
+    </style>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/js/jquery.ui.touch-punch.min.js"></script>
+</head>
+
+<body>
+<div id="main">
+<h3>Based on your prior belief of a</h3>
+<h2><span id="prior">1</span>% chance</h2>
+<div id="slider"></div>
+<h3>Nate Silver is a witch,</h3>
+<h2>there is now a</h2>
+<h1><span id="posterior">88</span>% chance</h1>
+<h2>Nate Silver is a witch</h2>
+</div>
+<script type="text/javascript" src="../js/d3.v2.js"></script>
+    <script>
+    function pWitch(prior) {
+        var pAllStatesCorrect = 0.12534990602465945;
+        return prior / (prior + (1-prior)*pAllStatesCorrect);
+    }
+
+    function updateProbabilities(priorPercent) {
+
+        $("#prior")[0].innerHTML=priorPercent;
+        $("#posterior")[0].innerHTML=Math.round(pWitch(priorPercent/100)*1000)/10;
+    }
+
+    $(function() {
+        $( "#slider" ).slider(
+            {value: 1,
+             step: 0.1,
+             create: function(event, ui) {
+                updateProbabilities(1)
+            },
+             slide: function(event, ui) {
+                updateProbabilities(ui.value)
+            } });
+    });
+
+
+
+    </script>
+</body>

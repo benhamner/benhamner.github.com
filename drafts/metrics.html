@@ -1,0 +1,141 @@
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Evaluation Metrics for Binary Classification - Ben Hamner's Blog</title>
+    <meta name="author" content="Ben Hamner" />
+    <!--script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script-->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/blog-style.css" />
+    <style type="text/css">
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.label {
+    font-family: sans-serif;
+    font-size: 11px;
+    fill: #777;
+    shape-rendering: crispEdges;
+}
+
+path.line {
+    fill: none;
+    stroke: #666;
+}
+
+
+    </style>
+</head>
+
+<body>
+<div class="span8">
+<h1>Ben Hamner's Blog</h1>
+<h2>Evaluation Metrics for Binary Classification</h2>
+<p>
+    One of the most common supervised machine learning tasks is binary classification, which involves answering a "yes/no" question about an object give some information on the object. Sample binary classification tasks include:
+    <ul>
+        <li>Is a compound toxic to humans, based on its molecular composition?</li>
+        <li>Is there a face in this image?</li>
+        <li>Will this customer respond to an upgrade offer?</li>
+        <li>Is this breast cancer tumor cancerous?</li>
+        <li>Is this email spam?</li>
+        <li>Will a person default on a loan?</li>
+    </ul>
+</p>
+<p>
+    A <strong>model</strong> is a method that answers each of these questions. The goal for any model is to generalize to previously unseen cases. For example, a model that detects whether or not a face is in an image should perform well on images that it's not seen before. There are many different models that could work for any given binary classification problem. Some of these models are better than others. In this post, we will define precisely what it means for a model to be better than another model along with the various ways we can measure this.
+</p>
+<p>
+    Models used for binary classification fall into three categories based on their output: those that output a binary value for each test sample, those that return a ranking of all the test samples from most likely to least likely, and those that return a predicted probability for each test sample. Different evaluation metrics may be used for these categories.
+</p>
+
+<p>
+    <h3>Evaluating Binary Response Models</h3>
+    <ul>
+        <li><strong>Accuracy</strong></li>
+        <li><strong>F1 Score</strong></li>
+        <li><strong>Sensitivity</strong></li>
+        <li><strong>Specificity</strong></li>
+        <li><strong>Precision</strong></li>
+        <li><strong>Recall</strong></li>
+    </ul>
+</p>
+<p>
+    For each test sample, there are four possible outcomes:
+    <ul>
+        <li><strong>True Postive (TP)</strong>The model correctly predicted a 1</li>
+    </ul>
+</p>
+<p>
+    One of the simplest and most common ways to evaluate models is accuracy. For example, it is common to hear that a medical test is 99.5% correct. However, there's a huge caveat: accuracy may be very misleading in the case of imbalanced classes. Let's say that 5 people in a sample of 1000 have cancer, and 995 do not. A model that classifies everyone as cancer-free is 99.5% correct and completely useless. On the other hand, a model that classifies 20 patients as having cancer, including the 5 that actually do have cancer, is only 98% correct but far more valuable.
+</p>
+<p>
+    This discrepancy begs the question: what makes one model better than another? Clearly, it isn't accuracy in this example.
+</p>
+
+<p>
+    <h3>Evaluating Rank-Order Models</h3>
+    <ul>
+        <li><strong>Area Under the ROC Curve</strong></li>
+        <li><strong>Lift@K</strong></li>
+        <li><strong>Mean Average Precision</strong></li>
+        <li><strong>Mean Average Precsion@K</strong></li>
+    </ul>
+</p>
+<p>
+    <h3>Evaluating Probabilistic Models</h3>
+    Models that return a predicted probability lend themselves to the most flexible applications: you can take different actions depending on the probability, and you could always degrade back to the other two options.
+</p>
+<p>
+    There are three common evaluation metrics (also known as loss functions) for binary classification:
+    <ul>
+        <li><strong>Logarithmic Loss</strong> \(-y\log\left(\hat{y}\right)-\left(1-y\right)\log\left(1-\hat{y}\right)\)</li>
+        <li><strong>Squared Loss</strong> \(\left(y-\hat{y}\right)^2\)</li>
+        <li><strong>Absolute Value Loss</strong> \(\left|y-\hat{y}\right|\)</li>
+    </ul>
+    In the equations above, \(y\) represents the true class (0 or 1), and \(\hat{y}\) represents the predicted probability that the true class is 1.
+</p>
+<div id="chart"></div>
+<p>
+    <h4>Acknowledgements</h4>
+    Many thanks to X, Y, and Z for reading a draft of this post before it was published.
+</p>
+</div>
+<script src="../js/jquery-1.7.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/d3.v2.js"></script>
+<script type="text/javascript" src="../js/plot.js"></script>
+<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+<script type="text/javascript">
+
+data_array = [];
+
+create_errorgraph();
+
+d3.csv("PhotoQualityPrediction.csv", function(data) {
+    data_array.push(data);
+d3.csv("bioresponse.csv", function(data) {
+    data_array.push(data);
+d3.csv("WhatDoYouKnow.csv", function(data) {
+    data_array.push(data);
+        create_scatterplot(data_array, "LogLoss", "MSE");
+        //create_scatterplot(data_array, "LogLoss", "MAE");
+        //create_scatterplot(data_array, "LogLoss", "AUC");
+        //create_scatterplot(data_array, "LogLoss", "Accuracy");
+        //create_scatterplot(data_array, "MAE", "Accuracy");
+        });});});
+
+</script>
+
+</body>
