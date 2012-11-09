@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <style type="text/css">
     body {
-        background-color: #eee; /* I took an oath never to use flat white backgrounds. */
+        background-color: #eee;
         text-rendering: optimizeLegibility;
         color: #222;
         margin: 0px;
         padding: 0px;
         margin-top: 10%;
         width: 100%;
-        font-family: 'Alegreya'; /* Do you speak German? No? Then STOP USING HELVETICA. */
+        font-family: 'Alegreya';
         text-align: center;
     }
 
@@ -22,6 +22,16 @@
         margin: auto;
         width: 44em;
         text-align: center;
+    }
+
+    #explanation {
+        margin: auto;
+        margin-top:5em;
+        width: 44em;
+        text-align: left;
+        font-weight: normal;
+        font-size:18px;
+        font-color: #666;
     }
 
     h1 {
@@ -44,6 +54,11 @@
         margin: 0px;
     }
 
+    #percentAllCorrect {
+        font-weight: bold;
+        color: #000;
+    }
+
     </style>
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
@@ -60,6 +75,31 @@
 <h1><span id="posterior">88</span>% chance</h1>
 <h2>Nate Silver is a witch</h2>
 </div>
+<div id="explanation">
+<p>
+    As Josh Wills pointed out, <a href="http://isnatesilverawitch.com">isnatesilverawitch.com</a> has a dissapointing methodology: it doesn't use any data!
+</p>
+
+<p>
+    To answer this question more quantitatively, we make a couple assumptions:
+    <ul>
+        <li>Nate Silver's final November 6 predictions represent the true probability of Obama winning the state.</li>
+        <li>Election outcomes in one state don't depend on another state</li>
+    </ul>
+    This enables us to calculate the probability of Nate Silver correctly calling all 50 states plus Washington DC. Nate Silver had a <span id="percentAllCorrect">12.53% chance</span> of correctly calling each state.
+</p>
+<p>
+    This probability was calculated by executing the following javascript code on fivethirtyeight.com:
+    <pre style='color:#000000;font-size:12px;margin-left:2em'>nytg<span style='color:#808030; '>.</span>stateData<span style='color:#808030; '>.</span>forecast<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>.</span>states
+    <span style='color:#808030; '>.</span>map<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800080; '>{</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>stateAbbreviation</span><span style='color:#800000; '>"</span><span style='color:#800080; '>:</span> x<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>pObamaWinsState</span><span style='color:#800000; '>"</span><span style='color:#800080; '>:</span> x<span style='color:#808030; '>[</span><span style='color:#008c00; '>5</span><span style='color:#808030; '>]</span><span style='color:#808030; '>/</span><span style='color:#008c00; '>100</span><span style='color:#800080; '>}</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
+    <span style='color:#808030; '>.</span>filter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>isNaN</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>parseInt</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>.</span>stateAbbreviation<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
+    <span style='color:#808030; '>.</span>map<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#808030; '>[</span>x<span style='color:#808030; '>.</span>pObamaWinsState<span style='color:#808030; '>,</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>-</span>x<span style='color:#808030; '>.</span>pObamaWinsState<span style='color:#808030; '>]</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>max</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
+    <span style='color:#808030; '>.</span>reduce<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>,</span>y<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> x<span style='color:#808030; '>*</span>y<span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
+</pre>
+</p>
+
+</div>
+
 <script type="text/javascript" src="../js/d3.v2.js"></script>
     <script>
     function pWitch(prior) {
@@ -85,7 +125,7 @@
             } });
     });
 
-
-
+    // run the Syntax highlighter
+    SyntaxHighlighter.all();
     </script>
 </body>
