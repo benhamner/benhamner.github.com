@@ -89,6 +89,7 @@
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="/js/d3.v2.js"></script>
     <script type="text/javascript"src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -97,10 +98,9 @@
 <h3>Based on your prior belief of a</h3>
 <h2><span id="prior">1</span>% chance</h2>
 <div id="slider"></div>
-<h3>Nate Silver is a witch,</h3>
-<h2>there is now a</h2>
+<h3>Nate Silver is a witch, there is now a</h3>
 <h1><span id="posterior">88</span>% chance</h1>
-<h2>Nate Silver is a witch</h2>
+<h2>Nate Silver is a <span id="witch">witch</span></h2>
 </div>
 <div id="explanation">
 <p>
@@ -108,24 +108,45 @@
     <div style="text-align:center;margin:0em"><img src="/img/josh_wills_isnatesilverawitch_tweet.png" style="margin:1em;text-align:center"></img></div><br />
 To answer this question more quantitatively, we made a couple assumptions:
     <ul>
-        <li>Nate Silver's final November 6 predictions represent the true probability of Obama winning the state.</li>
+        <li>Nate Silver's final November 6 predictions represent the true probability of Obama winning the state.
+            <ul>
+                <li>For example, Obama had a 50.3% chance of winning Florida</li>
+            </ul>
+        </li>
         <li>Election outcomes in one state don't depend on another state</li>
+            <ul><li>So Obama winning Ohio doesn't effect the Nevada outcome</li></ul>
         <li>If Nate Silver is a witch, then he would get every state correct
             <ul>
                 <li>In Bayesian terms, \(P(\text{AllStatesRight} | \text{NateIsAWitch}) = 1\)</li>
             </ul>
         </li>
     </ul>
-    This enables us to calculate the probability of Nate Silver correctly calling all 50 states plus Washington DC. Nate Silver had a <span id="percentAllCorrect">12.53% chance</span> of correctly calling each state.
+    This enables us to calculate the probability of Nate Silver correctly calling all 50 states plus Washington DC. To do this, we take the product of the probababilities the model assigned to the eventual winner of each state.
 </p>
 <p>
-    This probability was calculated by executing the following javascript code on fivethirtyeight.com:
+    This probability was calculated by executing the following javascript code on <a href="http://fivethirtyeight.com">fivethirtyeight.com</a>:
     <pre style='color:#000000;font-size:12px;margin-left:2em'>nytg<span style='color:#808030; '>.</span>stateData<span style='color:#808030; '>.</span>forecast<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>.</span>states
     <span style='color:#808030; '>.</span>map<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800080; '>{</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>stateAbbreviation</span><span style='color:#800000; '>"</span><span style='color:#800080; '>:</span> x<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>pObamaWinsState</span><span style='color:#800000; '>"</span><span style='color:#800080; '>:</span> x<span style='color:#808030; '>[</span><span style='color:#008c00; '>5</span><span style='color:#808030; '>]</span><span style='color:#808030; '>/</span><span style='color:#008c00; '>100</span><span style='color:#800080; '>}</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
     <span style='color:#808030; '>.</span>filter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>isNaN</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>parseInt</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>.</span>stateAbbreviation<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
     <span style='color:#808030; '>.</span>map<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#808030; '>[</span>x<span style='color:#808030; '>.</span>pObamaWinsState<span style='color:#808030; '>,</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>-</span>x<span style='color:#808030; '>.</span>pObamaWinsState<span style='color:#808030; '>]</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>max</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
     <span style='color:#808030; '>.</span>reduce<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>,</span>y<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> x<span style='color:#808030; '>*</span>y<span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
 </pre>
+</p>
+<p>
+    This tells us Nate Silver had a <span id="percentAllCorrect">12.53% chance</span> of correctly calling each state.
+</p>
+<p>
+    From there, we have a straightforward application of Bayes theorem:
+    $$P(H|D)=\frac{P(D|H)P(H)}{P(D)}=\frac{P(D|H)P(H)}{P(D|H)P(H)+P(D|H')P(H')}$$
+    with
+    $$\begin{align*}&H \text{, the hypothesis that Nate Silver is a witch}~\\
+    &D \text{, the data that Nate accurately predicted all states}~\\
+    &P(D|H) = 1 \text{  (if Nate was a witch he would've nailed each state)}~\\
+    &P(D|H') = 0.1253 \text{  (probability of Nate predicting all states given our model)}~\\
+    &P(H) \text{, your prior belief that Nate is a witch}~\\
+    &P(H') = 1-P(H)\end{align*}$$
+
+    Thus, we come to a different conclusion - Nate Silver is <span style="color:#d42">probably not a witch</span> for any reasonable priors.
 </p>
 
 </div>
@@ -137,10 +158,13 @@ To answer this question more quantitatively, we made a couple assumptions:
         return prior / (prior + (1-prior)*pAllStatesCorrect);
     }
 
+
     function updateProbabilities(priorPercent) {
 
         $("#prior")[0].innerHTML=priorPercent;
         $("#posterior")[0].innerHTML=Math.round(pWitch(priorPercent/100)*1000)/10;
+        var colorInterp=d3.interpolateRgb("#333", "#E33");
+        $("#witch")[0].style.color = colorInterp(priorPercent/100);
     }
 
     $(function() {
