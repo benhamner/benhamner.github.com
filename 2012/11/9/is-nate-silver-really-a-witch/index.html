@@ -181,10 +181,10 @@ To answer this question more quantitatively, we made a couple assumptions:
 
     $(function() {
         $( "#slider" ).slider(
-            {value: 1,
+            {value: 5,
              step: 0.1,
              create: function(event, ui) {
-                updateProbabilities(1)
+                updateProbabilities(5)
             },
              slide: function(event, ui) {
                 updateProbabilities(ui.value)
