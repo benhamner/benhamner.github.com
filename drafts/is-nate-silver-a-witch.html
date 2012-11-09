@@ -12,7 +12,7 @@
         color: #222;
         margin: 0px;
         padding: 0px;
-        margin-top: 10%;
+        margin-top: 8%;
         width: 100%;
         font-family: 'Alegreya';
         text-align: center;
@@ -26,8 +26,8 @@
 
     #explanation {
         margin: auto;
-        margin-top:5em;
-        width: 44em;
+        margin-top:3em;
+        width: 38em;
         text-align: left;
         font-weight: normal;
         font-size:18px;
@@ -35,22 +35,23 @@
     }
 
     h1 {
+        color: #24E;
         font-weight: normal;
-        font-size: 120px;
+        font-size: 84px;
         margin: 0px;
     }
 
     h2 {
         color: #666;
         font-weight: normal;
-        font-size: 72px;
+        font-size: 54px;
         margin: 0px;
     }
 
     h3 {
         color: #999;
         font-weight: normal;
-        font-size: 48px;
+        font-size: 36px;
         margin: 0px;
     }
 
@@ -59,10 +60,36 @@
         color: #000;
     }
 
+    #slider {
+        margin: 0.5em;
+    }
+
+    a:link {
+        color: #666;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #666;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #999;
+        text-decoration: none;
+    }
+
+    a:active {
+        color: #666;
+        text-decoration: none;
+    }
+
+    .ui-slider a {outline:none;}
     </style>
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript"src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
 <body>
@@ -77,12 +104,17 @@
 </div>
 <div id="explanation">
 <p>
-    As Josh Wills pointed out, <a href="http://isnatesilverawitch.com">isnatesilverawitch.com</a> has a dissapointing methodology: it doesn't use any data!
+    As <a href="https://twitter.com/josh_wills">Josh Wills</a> <a href="https://twitter.com/josh_wills/status/266278477077020672">pointed out</a>, <a href="http://isnatesilverawitch.com">isnatesilverawitch.com</a> has a dissapointing methodology: it doesn't use any data!
     <div style="text-align:center;margin:0em"><img src="/img/josh_wills_isnatesilverawitch_tweet.png" style="margin:1em;text-align:center"></img></div><br />
-To answer this question more quantitatively, we make a couple assumptions:
+To answer this question more quantitatively, we made a couple assumptions:
     <ul>
         <li>Nate Silver's final November 6 predictions represent the true probability of Obama winning the state.</li>
         <li>Election outcomes in one state don't depend on another state</li>
+        <li>If Nate Silver is a witch, then he would get every state correct
+            <ul>
+                <li>In Bayesian terms, \(P(\text{AllStatesRight} | \text{NateIsAWitch}) = 1\)</li>
+            </ul>
+        </li>
     </ul>
     This enables us to calculate the probability of Nate Silver correctly calling all 50 states plus Washington DC. Nate Silver had a <span id="percentAllCorrect">12.53% chance</span> of correctly calling each state.
 </p>
@@ -123,7 +155,5 @@ To answer this question more quantitatively, we make a couple assumptions:
             } });
     });
 
-    // run the Syntax highlighter
-    SyntaxHighlighter.all();
     </script>
 </body>
