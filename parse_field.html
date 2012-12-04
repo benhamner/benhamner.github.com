@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Identify Types / Context From Arbitrary Strings</title>
-
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <style type="text/css">
 
-#wrapper
+#parse_field_app
 {
-    text-align: center;
-    width: 100%;
-}
-
-#main
-{
-    margin-left: auto;
-    margin-right: auto;
     padding-left: 20px;
     padding-right: 20px;
     text-align: left;
-    width: 400px;
 }
 
 #field
@@ -34,7 +28,6 @@
     padding: 9px;
     text-align: left;
     width: 100%;
-    max-width: 300px;
 
 }
 
@@ -47,17 +40,32 @@
 
 </style>
 
-    <!--script src="js/bootstrap.min.js"></script-->
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-1.7.1.min.js"></script>
 </head>
 
 <body>
-<div id="wrapper">
-    <div id="main">
+<div id="container">
+<div class="row">
+    <div id="parse_field_app" class="span4 offset4">
         <input id="field" type="text"></input>
         <div id="type" class="write"></div>
         <div id="output" class="write"></div>
+        <div id="links" class="write">
+            <b>Sample inputs:</b><br />
+            <a href='javascript:update_field("920");'>920</a><br />
+            <a href='javascript:update_field("123.4");'>123.4</a><br />
+            <a href='javascript:update_field("123.4%");'>123.4%</a><br />
+            <a href='javascript:update_field("Christmas time");'>Christmas time</a><br />
+            <a href='javascript:update_field("12/17/1987");'>12/17/1987</a><br />
+            <a href='javascript:update_field("1:53 PM");'>1:53 PM</a><br />
+            <a href='javascript:update_field("1,2,3,4");'>1,2,3,4</a><br />
+            <a href='javascript:update_field("5%,10 %,15%,45%");'>5%,10 %,15%,45%</a><br />
+            <a href='javascript:update_field("Ben");'>Ben</a><br />
+        </div>
     </div>
+    </div>
+</div>
 </div>
 <script>
 
@@ -77,7 +85,9 @@ function get_type_and_value(str) {
     }
     var date = new Date(str);
     if (!isNaN(date.valueOf())) {
-        return {type: "Date", value: date}
+        if (!/^\s*(\d+[^\/\dA-Za-z]){1,3}\d*\s*$/.test(str)) {
+            return {type: "Date", value: date};
+        }
     }
     if (/^\s*\d{1,2}:\d{2}\s*(am|pm|)\s*$/.test(str.toLowerCase())) {
         var date = new Date();
@@ -90,7 +100,34 @@ function get_type_and_value(str) {
         return {type: "Joker", value: str}
     }
 
+    if (/^\s*(jeremy|howard|jeremy\s*howard)\s*$/.test(str.toLowerCase())) {
+        return {type: "Yogi", value: str}
+    }
+
+    if (/^\s*(chris|clark|chris\s*clark)\s*$/.test(str.toLowerCase())) {
+        return {type: "Untrod", value: str}
+    }
+
+    split_str = str.split(",")
+    if (split_str.length > 1) {
+        this_types = split_str.map(get_type_and_value)
+        type = this_types.reduce(function (prev, curr) { 
+            if (prev==false) {return false;}
+            if (prev.type==curr.type) {return curr;} else {return false;}});
+        if (type != false) {
+            type = type.type;
+        }
+        if (type && type != "String") {
+            return {type: "["+type+"]", value: "["+this_types.map(function (x) {return x.value;}).join(", ")+"]" };
+        }
+    }
+
     return {type: "String", value: str};
+}
+
+function update_field(str) {
+    $("#field")[0].value = str;
+    parse_field();
 }
 
 function parse_field() {
@@ -101,8 +138,7 @@ function parse_field() {
 
 $("#field")[0].onkeyup = parse_field;
 $("#field")[0].onkeydown = parse_field;
-
-parse_field();
+update_field("10%,20%,30 %, 40%");
 
 </script>
 </body>
