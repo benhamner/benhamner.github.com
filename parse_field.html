@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Identify Types / Context From Arbitrary Strings</title>
+
+<style type="text/css">
+
+#wrapper
+{
+    text-align: center;
+    width: 100%;
+}
+
+#main
+{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+    width: 400px;
+}
+
+#field
+{
+    border: 1px solid;
+    border-color: #53CDFF;
+    box-shadow: 0px;
+    font-family: "ge-inspira",'Verdana';
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    outline: 0px;
+    padding: 9px;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+
+}
+
+.write 
+{
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: "ge-inspira",'Verdana';
+}
+
+</style>
+
+    <!--script src="js/bootstrap.min.js"></script-->
+    <script src="js/jquery-1.7.1.min.js"></script>
+</head>
+
+<body>
+<div id="wrapper">
+    <div id="main">
+        <input id="field" type="text"></input>
+        <div id="type" class="write"></div>
+        <div id="output" class="write"></div>
+    </div>
+</div>
+<script>
+
+function get_type_and_value(str) {
+    if (str.length==0){
+        return {type: "Empty", value: ""};
+    }
+    if (/^\s*\d+\s*$/.test(str)) {
+        return {type: "Integer", value: parseInt(str)}
+    }
+    if (/^\s*(\.\d+|\d+\.\d*)\s*$/.test(str)) {
+        return {type: "Double", value: parseFloat(str)}
+    }
+    if (/^\s*(\d+|\.\d+|\d+\.\d*)\s*%\s*$/.test(str)) {
+        str = str.replace("%", "")
+        return {type: "Percent", value: parseFloat(str)}
+    }
+    var date = new Date(str);
+    if (!isNaN(date.valueOf())) {
+        return {type: "Date", value: date}
+    }
+    if (/^\s*\d{1,2}:\d{2}\s*(am|pm|)\s*$/.test(str.toLowerCase())) {
+        var date = new Date();
+        var date = new Date(date.toDateString() + " " + str);
+        if (!isNaN(date.valueOf())) {
+            return {type: "Date", value: date}
+        }
+    }
+    if (/^\s*(ben|hamner|ben\s*hamner)\s*$/.test(str.toLowerCase())) {
+        return {type: "Joker", value: str}
+    }
+
+    return {type: "String", value: str};
+}
+
+function parse_field() {
+    var this_type = get_type_and_value($("#field")[0].value);
+    $("#output")[0].innerHTML = "<b>Value: </b>" + this_type.value;
+    $("#type")[0].innerHTML = "<b>Type: </b>" + this_type.type;
+}
+
+$("#field")[0].onkeyup = parse_field;
+$("#field")[0].onkeydown = parse_field;
+
+parse_field();
+
+</script>
+</body>
