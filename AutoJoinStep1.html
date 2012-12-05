@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://127.0.0.1:8888/9e014a1a-ee19-425a-aa20-dc36b153d0d7/print -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>IPython Notebook</title>
+<link rel="stylesheet" href="./AutoJoinStep1_files/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="./AutoJoinStep1_files/boilerplate.css" type="text/css">
+<link rel="stylesheet" href="./AutoJoinStep1_files/fbm.css" type="text/css">
+<link rel="stylesheet" href="./AutoJoinStep1_files/page.css" type="text/css">
+
+
+<script type="text/javascript" src="./AutoJoinStep1_files/MathJax.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+// MathJax disabled, set as null to distingish from *missing* MathJax,
+// where it will be undefined, and should prompt a dialog later.
+window.mathjax_url = "http://cdn.mathjax.org/mathjax/latest/MathJax.js";
+</script>
+<link rel="stylesheet" href="http://127.0.0.1:8888/static/codemirror/lib/codemirror.css?v=63efb">
+<link rel="stylesheet" href="http://127.0.0.1:8888/static/codemirror/theme/ipython.css?v=fa49d">
+<link rel="stylesheet" href="http://127.0.0.1:8888/static/prettify/prettify.css?v=83f40">
+<link rel="stylesheet" href="./AutoJoinStep1_files/notebook.css" type="text/css">
+<link rel="stylesheet" href="./AutoJoinStep1_files/printnotebook.css" type="text/css">
+<link rel="stylesheet" href="./AutoJoinStep1_files/renderedhtml.css" type="text/css">
+
+
+
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuTitle {background-color: #CCCCCC; margin: -1px -1px 1px -1px; text-align: center; font-style: italic; font-size: 80%; color: #444444; padding: 2px 0; overflow: hidden}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 0; position: relative; display: block; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; border: 0; padding: 0; margin: 0}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0 !important; padding: 0 !important; margin: 0 !important; vertical-align: 0 !important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap ! important}
+.MathJax img {display: inline ! important; float: none ! important}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block; overflow: hidden; width: 1px; height: 60ex}
+.MathJax .MathJax_EmBox {display: block; overflow: hidden; width: 1px; height: 60em}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Main; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf') format('opentype'); font-weight: bold}
+@font-face {font-family: MathJax_Main; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf') format('opentype'); font-style: italic}
+@font-face {font-family: MathJax_Math; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype'); font-style: italic}
+@font-face {font-family: MathJax_Caligraphic; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body data-project="C:\Users\ben_000\Dropbox\Data\NY_Schools" data-base-project-url="/" data-base-kernel-url="/" data-read-only="False" data-notebook-id="9e014a1a-ee19-425a-aa20-dc36b153d0d7"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+<div id="header" class="border-box-sizing ui-widget ui-widget-content" style="border-top-style: none; border-left-style: none; border-right-style: none;">
+<span id="ipython_notebook"><h1><a href="http://127.0.0.1:8888/" alt="dashboard"><img src="./AutoJoinStep1_files/ipynblogo.png" alt="IPython Notebook"></a></h1></span>
+
+<span id="login_widget">
+
+</span>
+
+
+
+</div>
+<div id="site" class="border-box-sizing" style="display: block;">
+
+<div id="main_app" class="border-box-sizing ui-widget">
+<div id="notebook_panel" class="border-box-sizing ui-widget">
+<div id="notebook" class="border-box-sizing"><div class="cell text_cell border-box-sizing" tabindex="2"><div class="text_cell_input border-box-sizing" style="display: none;"><div class="CodeMirror CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea style="position: absolute; padding: 0; width: 1px; height: 1em" wrap="off" autocorrect="off" autocapitalize="off"></textarea></div><div class="CodeMirror-scroll cm-s-default" tabindex="-1"><div style="position: relative"><div style="position: relative"><div class="CodeMirror-gutter" style="display: none;"><div class="CodeMirror-gutter-text"></div></div><div class="CodeMirror-lines"><div style="position: relative; z-index: 0; outline: none;"><div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; outline: 5px auto none"><pre><span>x</span></pre></div><pre class="CodeMirror-cursor">&nbsp;</pre><div style="position: relative; z-index: -1"></div><div></div></div></div></div></div></div></div></div><div class="text_cell_render border-box-sizing rendered_html" tabindex="-1" style=""><h1>Automatic foreign key detection to JOIN tabular data from disparate sources</h1></div></div><div class="cell text_cell border-box-sizing" tabindex="2"><div class="text_cell_input border-box-sizing" style="display: none;"><div class="CodeMirror CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea style="position: absolute; padding: 0; width: 1px; height: 1em" wrap="off" autocorrect="off" autocapitalize="off"></textarea></div><div class="CodeMirror-scroll cm-s-default" tabindex="-1"><div style="position: relative"><div style="position: relative"><div class="CodeMirror-gutter" style="display: none;"><div class="CodeMirror-gutter-text"></div></div><div class="CodeMirror-lines"><div style="position: relative; z-index: 0; outline: none;"><div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; outline: 5px auto none"><pre><span>x</span></pre></div><pre class="CodeMirror-cursor">&nbsp;</pre><div style="position: relative; z-index: -1"></div><div></div></div></div></div></div></div></div></div><div class="text_cell_render border-box-sizing rendered_html" tabindex="-1" style=""><p>As Chris pointed out in <a href="http://untrod.com/pandas/IPython%20Notebook.htm" target="_blank">this analysis</a>, there is currently no support in the Pandas ecosystem for automatically detecting relations between tables, and this is a painful task.</p>
+
+<p>I've started <a href="https://team.kaggle.com/wiki/KagglePlatform.Tools.Join" target="_blank">prototyping a methodology</a> to address these pain points. In this first example, we're using fuzzy matching between columns to automatically identify and recommend joins between tables.</p></div></div><div class="cell border-box-sizing code_cell vbox" tabindex="2"><div class="input hbox"><div class="prompt input_prompt">In&nbsp;[1]:</div><div class="input_area box-flex1"><div class="CodeMirror"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 22.7166748046875px; left: 229.71666717529297px;"><textarea style="position: absolute; padding: 0px; width: 1px; height: 1em; background-image: none; background-position: 0% 0%; background-repeat: repeat repeat;" wrap="off" autocorrect="off" autocapitalize="off"></textarea></div><div class="CodeMirror-scroll cm-s-ipython" tabindex="-1"><div style="position: relative; height: 250px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-gutter" style="display: none;"><div class="CodeMirror-gutter-text"></div></div><div class="CodeMirror-lines"><div style="position: relative; z-index: 0; outline: none;"><div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; outline: 5px auto none"><pre><span class="cm-keyword">import</span> <span class="cm-variable">ml_metrics</span> <span class="cm-keyword">as</span> <span class="cm-variable">metrics</span><span id="CodeMirror-temp-a3cc2a"> </span></pre></div><pre class="CodeMirror-cursor" style="top: 17px; left: 224px;">&nbsp;</pre><div style="position: relative; z-index: -1; display: none;"></div><div style=""><pre><span class="cm-keyword">import</span> <span class="cm-variable">os</span></pre><pre><span class="cm-keyword">import</span> <span class="cm-variable">ml_metrics</span> <span class="cm-keyword">as</span> <span class="cm-variable">metrics</span></pre><pre><span class="cm-keyword">import</span> <span class="cm-variable">pandas</span> <span class="cm-keyword">as</span> <span class="cm-variable">pd</span></pre><pre><span class="cm-keyword">from</span> <span class="cm-variable">kaggleds</span> <span class="cm-keyword">import</span> <span class="cm-variable">wombat</span> <span class="cm-keyword">as</span> <span class="cm-variable">w</span></pre><pre> </pre><pre><span class="cm-variable">dsProgReports</span> = <span class="cm-variable">pd.read_csv</span>(<span class="cm-string">'School_Progress_Reports_-_All_Schools_-_2009-10.csv'</span>)</pre><pre><span class="cm-variable">dsDistrict</span> = <span class="cm-variable">pd.read_csv</span>(<span class="cm-string">'School_District_Breakdowns.csv'</span>)</pre><pre><span class="cm-variable">dsClassSize</span> = <span class="cm-variable">pd.read_csv</span>(<span class="cm-string">'2009-10_Class_Size_-_School-level_Detail.csv'</span>)</pre><pre><span class="cm-variable">dsAttendEnroll</span> = <span class="cm-variable">pd.read_csv</span>(<span class="cm-string">'School_Attendance_and_Enrollment_Statistics_by_District__2010-11_.csv'</span>)[:<span class="cm-operator">-</span><span class="cm-number">2</span>] <span class="cm-comment">#last two rows are bad</span></pre><pre><span class="cm-variable">dsSATs</span> = <span class="cm-variable">pd.read_csv</span>(<span class="cm-string">'SAT__College_Board__2010_School_Level_Results.csv'</span>) <span class="cm-comment"># Dependent</span></pre><pre> </pre><pre><span class="cm-variable">data_frames</span> = {<span class="cm-string">"ProgReports"</span> : <span class="cm-variable">dsProgReports</span>, <span class="cm-string">"District"</span>: <span class="cm-variable">dsDistrict</span>, <span class="cm-string">"ClassSize"</span>: <span class="cm-variable">dsClassSize</span>, <span class="cm-string">"AttendEnroll"</span>: <span class="cm-variable">dsAttendEnroll</span>, <span class="cm-string">"SATs"</span>: <span class="cm-variable">dsSATs</span>}</pre><pre> </pre><pre><span class="cm-variable">w.join.relate_tables</span>(<span class="cm-variable">data_frames</span>)</pre></div></div></div></div></div></div></div></div></div><div class="output_wrapper"><div style="" class="out_prompt_overlay prompt" title="click to expand outout; double click to hide output"></div><div class="output vbox" style=""><div class="hbox output_area"><div class="prompt"></div><div class="box-flex1 output_subarea output_text output_stream output_stdout"><pre>AttendEnroll:District JOIN ClassSize:CSD
+AttendEnroll:District JOIN ProgReports:DISTRICT
+ClassSize:SCHOOL NAME JOIN SATs:School Name
+ClassSize:CSD JOIN District:JURISDICTION NAME
+SATs:School Name JOIN ProgReports:SCHOOL
+District:JURISDICTION NAME JOIN ProgReports:DISTRICT
+</pre></div></div></div><div style="display: none;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only output_collapsed vbox" role="button" title="click to expand outout">. . .</div></div></div><div class="cell text_cell border-box-sizing" tabindex="2"><div class="text_cell_input border-box-sizing" style="display: none;"><div class="CodeMirror CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea style="position: absolute; padding: 0; width: 1px; height: 1em" wrap="off" autocorrect="off" autocapitalize="off"></textarea></div><div class="CodeMirror-scroll cm-s-default" tabindex="-1"><div style="position: relative"><div style="position: relative"><div class="CodeMirror-gutter" style="display: none;"><div class="CodeMirror-gutter-text"></div></div><div class="CodeMirror-lines"><div style="position: relative; z-index: 0; outline: none;"><div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; outline: 5px auto none"><pre><span>x</span></pre></div><pre class="CodeMirror-cursor">&nbsp;</pre><div style="position: relative; z-index: -1"></div><div></div></div></div></div></div></div></div></div><div class="text_cell_render border-box-sizing rendered_html" tabindex="-1" style=""><p>This methodology recommended 4 table JOINs that Chris had previously identified through a painstakingly manual process (SATs-ClassSize, ProgReports-SATs, District-ProgReports, and AttendEnroll-ProgReports). Now that we can do fuzzy joins, it identified the school name as a potentially more reliable field to join on than mangled versions of the school ID for some of these joins. Additionally, it highlighted several other relations between tables that weren't present in Chris's methodology (which was only focused on the ones that would trace back to the dependent variable). These were AttendEnroll-ClassSize and ClassSize-District.</p></div></div><div class="cell text_cell border-box-sizing ui-widget-content ui-corner-all" tabindex="2"><div class="text_cell_input border-box-sizing" style="display: block;"><div class="CodeMirror CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.7166748046875px; left: 5.716667175292969px;"><textarea style="position: absolute; padding: 0px; width: 1px; height: 1em; background-image: none; background-position: 0% 0%; background-repeat: repeat repeat;" wrap="off" autocorrect="off" autocapitalize="off"></textarea></div><div class="CodeMirror-scroll cm-s-default" tabindex="-1"><div style="position: relative; height: 63px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-gutter" style="display: none;"><div class="CodeMirror-gutter-text"></div></div><div class="CodeMirror-lines"><div style="position: relative; z-index: 0; outline: none;"><div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; outline: 5px auto none"></div><pre class="CodeMirror-cursor" style="top: 0px; left: 0px; visibility: hidden;">&nbsp;</pre><div style="position: relative; z-index: -1; display: none;"></div><div style=""><pre>At a high level, this methodology looks at each pair of tables, and then each pair of columns between these two tables, and scores these columns according to the likelihood that they represent a relation between the two tables. It then returns recommendations where the score exceeds a certain cutoff. A hybrid automated-manual system would display recommendations the system is less sure about to the user, who can then affirm that this is a foreign key relation or indicate that it is not.</pre></div></div></div></div></div></div></div></div><div class="text_cell_render border-box-sizing rendered_html" tabindex="-1" style="display: none;"><p>At a high level, this methodology looks at each pair of tables, and then each pair of columns between these two tables, and scores these columns according to the likelihood that they represent a relation between the two tables. It then returns recommendations where the score exceeds a certain cutoff. A hybrid automated-manual system would display recommendations the system is less sure about to the user, who can then affirm that this is a foreign key relation or indicate that it is not.</p></div></div><div class="end_space" style="height: 30%;"></div></div>
+</div>
+</div>
+
+</div>
+<script src="./AutoJoinStep1_files/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/namespace.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/page.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/loginwidget.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="./AutoJoinStep1_files/codemirror.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/python.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/htmlmixed.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/xml.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/javascript.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/css.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/rst.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/markdown.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/Markdown.Converter.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/prettify.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/date.format.js" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/events.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/utils.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/initmathjax.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/outputarea.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/cell.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/codecell.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/textcell.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/kernel.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/notebook.js" type="text/javascript" charset="utf-8"></script>
+<script src="./AutoJoinStep1_files/printnotebookmain.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+<div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Main, sans-serif;"></div></body></html>
