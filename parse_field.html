@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identify Types / Context From Arbitrary Strings</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<style type="text/css">
+
+#parse_field_app
+{
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+}
+
+#field
+{
+    border: 1px solid;
+    border-color: #53CDFF;
+    box-shadow: 0px;
+    font-family: "ge-inspira",'Verdana';
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    outline: 0px;
+    padding: 9px;
+    text-align: left;
+    width: 100%;
+
+}
+
+.write 
+{
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: "ge-inspira",'Verdana';
+}
+
+</style>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-25780008-1']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
+</head>
+
+<body>
+<div id="container">
+<div class="row">
+    <div id="parse_field_app" class="span4 offset4">
+        <input id="field" type="text"></input>
+        <div id="type" class="write"></div>
+        <div id="output" class="write"></div>
+        <div id="links" class="write">
+            <b>Sample inputs:</b><br />
+            <a href='javascript:update_field("920");'>920</a><br />
+            <a href='javascript:update_field("123.4");'>123.4</a><br />
+            <a href='javascript:update_field("123.4%");'>123.4%</a><br />
+            <a href='javascript:update_field("Christmas time");'>Christmas time</a><br />
+            <a href='javascript:update_field("12/17/1987");'>12/17/1987</a><br />
+            <a href='javascript:update_field("1:53 PM");'>1:53 PM</a><br />
+            <a href='javascript:update_field("1,2,3,4");'>1,2,3,4</a><br />
+            <a href='javascript:update_field("5%,10 %,15%,45%");'>5%,10 %,15%,45%</a><br />
+            <a href='javascript:update_field("Ben");'>Ben</a><br />
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<script>
+
+function get_type_and_value(str) {
+    if (str.length==0){
+        return {type: "Empty", value: ""};
+    }
+    if (/^\s*\d+\s*$/.test(str)) {
+        return {type: "Integer", value: parseInt(str)}
+    }
+    if (/^\s*(\.\d+|\d+\.\d*)\s*$/.test(str)) {
+        return {type: "Double", value: parseFloat(str)}
+    }
+    if (/^\s*(\d+|\.\d+|\d+\.\d*)\s*%\s*$/.test(str)) {
+        str = str.replace("%", "")
+        return {type: "Percent", value: parseFloat(str)}
+    }
+    var date = new Date(str);
+    if (!isNaN(date.valueOf())) {
+        if (!/^\s*(\d+[^\/\dA-Za-z]){1,3}\d*\s*$/.test(str)) {
+            return {type: "Date", value: date};
+        }
+    }
+    if (/^\s*\d{1,2}:\d{2}\s*(am|pm|)\s*$/.test(str.toLowerCase())) {
+        var date = new Date();
+        var date = new Date(date.toDateString() + " " + str);
+        if (!isNaN(date.valueOf())) {
+            return {type: "Date", value: date}
+        }
+    }
+    if (/^\s*(ben|hamner|ben\s*hamner)\s*$/.test(str.toLowerCase())) {
+        return {type: "Joker", value: str}
+    }
+
+    if (/^\s*(jeremy|howard|jeremy\s*howard)\s*$/.test(str.toLowerCase())) {
+        return {type: "Yogi", value: str}
+    }
+
+    if (/^\s*(chris|clark|chris\s*clark)\s*$/.test(str.toLowerCase())) {
+        return {type: "Untrod", value: str}
+    }
+
+    split_str = str.split(",")
+    if (split_str.length > 1) {
+        this_types = split_str.map(get_type_and_value)
+        type = this_types.reduce(function (prev, curr) { 
+            if (prev==false) {return false;}
+            if (prev.type==curr.type) {return curr;} else {return false;}});
+        if (type != false) {
+            type = type.type;
+        }
+        if (type && type != "String") {
+            return {type: "["+type+"]", value: "["+this_types.map(function (x) {return x.value;}).join(", ")+"]" };
+        }
+    }
+
+    return {type: "String", value: str};
+}
+
+function update_field(str) {
+    $("#field")[0].value = str;
+    parse_field();
+}
+
+function parse_field() {
+    var this_type = get_type_and_value($("#field")[0].value);
+    $("#output")[0].innerHTML = "<b>Value: </b>" + this_type.value;
+    $("#type")[0].innerHTML = "<b>Type: </b>" + this_type.type;
+}
+
+$("#field")[0].onkeyup = parse_field;
+$("#field")[0].onkeydown = parse_field;
+update_field("10%,20%,30 %, 40%");
+
+</script>
+</body>

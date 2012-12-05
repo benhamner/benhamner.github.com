@@ -12,7 +12,7 @@
         color: #222;
         margin: 0px;
         padding: 0px;
-        margin-top: 10%;
+        margin-top: 8%;
         width: 100%;
         font-family: 'Alegreya';
         text-align: center;
@@ -22,12 +22,13 @@
         margin: auto;
         width: 44em;
         text-align: center;
+        margin-bottom:1.5em;
     }
 
     #explanation {
         margin: auto;
-        margin-top:5em;
-        width: 44em;
+        margin-top:1.5em;
+        width: 38em;
         text-align: left;
         font-weight: normal;
         font-size:18px;
@@ -35,22 +36,23 @@
     }
 
     h1 {
+        color: #24E;
         font-weight: normal;
-        font-size: 120px;
+        font-size: 84px;
         margin: 0px;
     }
 
     h2 {
         color: #666;
         font-weight: normal;
-        font-size: 72px;
+        font-size: 54px;
         margin: 0px;
     }
 
     h3 {
         color: #999;
         font-weight: normal;
-        font-size: 48px;
+        font-size: 36px;
         margin: 0px;
     }
 
@@ -59,10 +61,51 @@
         color: #000;
     }
 
+    #slider {
+        margin: 0.5em;
+    }
+
+    a:link {
+        color: #666;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #666;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #999;
+        text-decoration: none;
+    }
+
+    a:active {
+        color: #666;
+        text-decoration: none;
+    }
+
+    .ui-slider a {outline:none;}
     </style>
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="/js/d3.v2.js"></script>
+    <script type="text/javascript"src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- start Mixpanel --><script type="text/javascript">var mpq=[];mpq.push(["init","b4b5b43c88c48e0ccbf70853033c0bcf"]);(function(){var b,a,e,d,c;b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=(document.location.protocol==="https:"?"https:":"http:")+"//api.mixpanel.com/site_media/js/api/mixpanel.js";a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a);e=function(f){return function(){mpq.push([f].concat(Array.prototype.slice.call(arguments,0)))}};d=["init","track","track_links","track_forms","register","register_once","identify","name_tag","set_config"];for(c=0;c<d.length;c++){mpq[d[c]]=e(d[c])}})();</script><!-- end Mixpanel -->
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-25780008-1']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
 </head>
 
 <body>
@@ -70,24 +113,37 @@
 <h3>Based on your prior belief of a</h3>
 <h2><span id="prior">1</span>% chance</h2>
 <div id="slider"></div>
-<h3>Nate Silver is a witch,</h3>
-<h2>there is now a</h2>
+<h3>Nate Silver is a witch, there is now a</h3>
 <h1><span id="posterior">88</span>% chance</h1>
-<h2>Nate Silver is a witch</h2>
+<h2>Nate Silver is a <span id="witch">witch</span></h2>
+</div>
+<div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://benhamner.com/2012/11/9/is-nate-silver-really-a-witch/" data-text="Is Nate Silver really a witch?" data-via="benhamner" data-size="large">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
 <div id="explanation">
 <p>
-    As Josh Wills pointed out, <a href="http://isnatesilverawitch.com">isnatesilverawitch.com</a> has a dissapointing methodology: it doesn't use any data!
-    <div style="text-align:center;margin:0em"><img src="/img/josh_wills_isnatesilverawitch_tweet.png" style="margin:1em;text-align:center"></img></div><br />
-To answer this question more quantitatively, we make a couple assumptions:
+    As <a href="https://twitter.com/josh_wills">Josh Wills</a> <a href="https://twitter.com/josh_wills/status/266278477077020672">pointed out</a>, <a href="http://isnatesilverawitch.com">isnatesilverawitch.com</a> has a dissapointing methodology: it doesn't use any statistics!
+    <div style="text-align:center;margin:0em"><img src="josh_wills_isnatesilverawitch_tweet.png"></img></div><br />
+To answer this question more quantitatively, we made a couple assumptions:
     <ul>
-        <li>Nate Silver's final November 6 predictions represent the true probability of Obama winning the state.</li>
+        <li>Nate's final predictions represent the true probability of Obama winning the state
+            <ul>
+                <li>For example, Obama had a 50.3% chance of winning Florida</li>
+            </ul>
+        </li>
         <li>Election outcomes in one state don't depend on another state</li>
+            <ul><li>So Obama winning Ohio doesn't effect the Nevada outcome</li></ul>
+        <li>If Nate Silver is a witch, then he would get every state correct
+            <ul>
+                <li>In Bayesian terms, \(P(\text{AllStatesRight} | \text{NateIsAWitch}) = 1\)</li>
+            </ul>
+        </li>
     </ul>
-    This enables us to calculate the probability of Nate Silver correctly calling all 50 states plus Washington DC. Nate Silver had a <span id="percentAllCorrect">12.53% chance</span> of correctly calling each state.
+    This enables us to calculate the probability of Nate Silver correctly calling all 50 states plus Washington DC. To do this, we take the product of the probababilities the model assigned to the eventual winner of each state.
 </p>
 <p>
-    This probability was calculated by executing the following javascript code on fivethirtyeight.com:
+    This probability was calculated by executing the following javascript code on <a href="http://fivethirtyeight.com">fivethirtyeight.com</a>:
     <pre style='color:#000000;font-size:12px;margin-left:2em'>nytg<span style='color:#808030; '>.</span>stateData<span style='color:#808030; '>.</span>forecast<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>.</span>states
     <span style='color:#808030; '>.</span>map<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800080; '>{</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>stateAbbreviation</span><span style='color:#800000; '>"</span><span style='color:#800080; '>:</span> x<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>pObamaWinsState</span><span style='color:#800000; '>"</span><span style='color:#800080; '>:</span> x<span style='color:#808030; '>[</span><span style='color:#008c00; '>5</span><span style='color:#808030; '>]</span><span style='color:#808030; '>/</span><span style='color:#008c00; '>100</span><span style='color:#800080; '>}</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
     <span style='color:#808030; '>.</span>filter<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>isNaN</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>parseInt</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>.</span>stateAbbreviation<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
@@ -95,8 +151,31 @@ To answer this question more quantitatively, we make a couple assumptions:
     <span style='color:#808030; '>.</span>reduce<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>,</span>y<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span><span style='color:#800000; font-weight:bold; '>return</span> x<span style='color:#808030; '>*</span>y<span style='color:#800080; '>;</span><span style='color:#800080; '>}</span><span style='color:#808030; '>)</span>
 </pre>
 </p>
+<p>
+    This tells us Nate Silver had a <span id="percentAllCorrect">12.53% chance</span> of correctly calling each state.
+</p>
+<p>
+    From there, we have a straightforward application of Bayes theorem:
+    $$P(H|D)=\frac{P(D|H)P(H)}{P(D)}=\frac{P(D|H)P(H)}{P(D|H)P(H)+P(D|H')P(H')}$$
+    with
+    $$\begin{align*}&H \text{, the hypothesis that Nate Silver is a witch}~\\
+    &D \text{, the data that Nate accurately predicted all states}~\\
+    &P(D|H) = 1 \text{  (if Nate was a witch he would've nailed each state)}~\\
+    &P(D|H') = 0.1253 \text{  (probability of Nate predicting all states given our model)}~\\
+    &P(H) \text{, your prior belief that Nate is a witch}~\\
+    &P(H') = 1-P(H)\end{align*}$$
+
+    Thus, we come to a different conclusion - Nate Silver is <span style="color:#d42">probably not a witch</span> for any reasonable priors.
+</p>
 
 </div>
+
+
+<div style="align:center"><p><a href="https://twitter.com/benhamner" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @benhamner</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</p></br>
+</div>
+
 
 <script type="text/javascript" src="../js/d3.v2.js"></script>
     <script>
@@ -105,25 +184,26 @@ To answer this question more quantitatively, we make a couple assumptions:
         return prior / (prior + (1-prior)*pAllStatesCorrect);
     }
 
+
     function updateProbabilities(priorPercent) {
 
         $("#prior")[0].innerHTML=priorPercent;
         $("#posterior")[0].innerHTML=Math.round(pWitch(priorPercent/100)*1000)/10;
+        var colorInterp=d3.interpolateRgb("#333", "#E33");
+        $("#witch")[0].style.color = colorInterp(priorPercent/100);
     }
 
     $(function() {
         $( "#slider" ).slider(
-            {value: 1,
+            {value: 5,
              step: 0.1,
              create: function(event, ui) {
-                updateProbabilities(1)
+                updateProbabilities(5)
             },
              slide: function(event, ui) {
                 updateProbabilities(ui.value)
             } });
     });
 
-    // run the Syntax highlighter
-    SyntaxHighlighter.all();
     </script>
 </body>
