@@ -12,12 +12,10 @@
 <div id="content" class="content">
 <p>
 	<h1>Kaggle StackOverflow Competition - Public Leaderboard Results</h1>
-	<h2>Show the top 1000 questions that the best model on the public leaderboard predicted as the most likely to be closed:</h2>
+	<h2>Show the top questions that a basic production model currently predicts as the most likely to be closed:</h2>
 	<h2>
 	<ul>
-    	<li><a id="OpenLink" href="#open"> Questions Open as of 8/14/2012 </a></li>
-    	<li><a id="ClosedLink" href="#closed"> Questiosn Closed as of 8/14/2012 </a></li>
-		<li><a id="BothLink" href="#all"> 1000 Questions Most Likely to Be Closed </a></li>
+		<li><a id="BothLink" href="#all"> Questions Most Likely to Be Closed </a></li>
 	</ul>
 </h2>
 </p>
@@ -35,14 +33,14 @@ function appendQuestion(html, row) {
 	html.push("\">");
 	html.push(row.title);
 	html.push("</a></strong><br /><br />");
-	html.push("Actually: ");
-	/*if (row.open=="true") {
+	/*html.push("Actually: ");
+	if (row.open=="true") {
 		html.push("<strong style='color:green'>Open</strong> (as of 8/14/2012)<br />")
 	}
 	else {
 		html.push("<strong style='color:red'>Closed</strong><br />")
 	}*/
-	html.push("Predicted Close Probability: <strong>");
+	html.push("Predicted Close Likelihood (NOT NORMALIZED YET TO PROBABILITY): <strong>");
 	html.push(row.close_likelihood);
 	html.push("%</strong><br /><br /><div class=\"wmd-preview\">");
 	//html.push(converter.makeHtml(row.body));
@@ -71,7 +69,7 @@ function showQuestions(data, is_open) {
 }
 
 function showAllQuestions() {
-	$.getJSON("http://stackapi.benhamner.com/api/questions?q={%22order_by%22:[{%22field%22:%22close_likelihood%22,%22direction%22:%22desc%22}]}", function(data) {
+	$.getJSON("http://stackapi.benhamner.com/api/questions?q={%22order_by%22:[{%22field%22:%22close_likelihood%22,%22direction%22:%22desc%22}],%22filters%22:[{%22name%22:%22close_likelihood%22,%22op%22:%22is_not_null%22}]}", function(data) {
 		showOpenAndClosedQuestions(data);
 	});	
 }
