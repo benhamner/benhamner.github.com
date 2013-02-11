@@ -71,7 +71,7 @@ function showQuestions(data, is_open) {
 }
 
 function showAllQuestions() {
-	$.getJSON("http://127.0.0.1:5000/api/questions?q={%22order_by%22:[{%22field%22:%22close_likelihood%22,%22direction%22:%22desc%22}]}", function(data) {
+	$.getJSON("stackapi.benhamner.com/api/questions?q={%22order_by%22:[{%22field%22:%22close_likelihood%22,%22direction%22:%22desc%22}]}", function(data) {
 		showOpenAndClosedQuestions(data);
 	});	
 }
