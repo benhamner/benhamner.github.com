@@ -48,7 +48,7 @@ function appendQuestion(html, row) {
 	html.push("</div><br /><br />");
 }
 
-function showOpenAndClosedQuestions(data) {
+function showQuestions(data) {
 	var mainbar = document.getElementById("mainbar");
 	var html = [];
 	for (var i=0; i<data["objects"].length; i++) {	
@@ -57,34 +57,10 @@ function showOpenAndClosedQuestions(data) {
 	mainbar.innerHTML = html.join("");	
 }
 
-function showQuestions(data, is_open) {
-	var mainbar = document.getElementById("mainbar");
-	var html = [];
-	for (var i=0; i<data.length; i++) {	
-		if (data[i].open==is_open) {
-			appendQuestion(html, data[i]);
-		}
-	}
-	mainbar.innerHTML = html.join("");	
-}
-
 function showAllQuestions() {
 	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"desc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"10"}', function(data) {
-		showOpenAndClosedQuestions(data);
+		showQuestions(data);
 	});	
-}
-
-function showOpenQuestions() {
-	$.getJSON("data.json", function(data) {
-		showQuestions(data, "true");
-	});
-}
-
-
-function showClosedQuestions() {
-	$.getJSON("data.json", function(data) {
-		showQuestions(data, "false");
-	});
 }
 
 function updateLocationFromHash() {
