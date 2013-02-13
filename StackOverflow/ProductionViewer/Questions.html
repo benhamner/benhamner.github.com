@@ -69,7 +69,7 @@ function showQuestions(data, is_open) {
 }
 
 function showAllQuestions() {
-	$.getJSON("http://stackapi.benhamner.com/api/questions?q={%22order_by%22:[{%22field%22:%22close_likelihood%22,%22direction%22:%22desc%22}],%22filters%22:[{%22name%22:%22close_likelihood%22,%22op%22:%22is_not_null%22}]}", function(data) {
+	$.getJSON("http://stackapi.benhamner.com/api/questions?q={%22order_by%22:[{%22field%22:%22close_likelihood%22,%22direction%22:%22desc%22}],%22filters%22:[{%22name%22:%22close_likelihood%22,%22op%22:%22is_not_null%22}],%22limit%22=10}", function(data) {
 		showOpenAndClosedQuestions(data);
 	});	
 }
