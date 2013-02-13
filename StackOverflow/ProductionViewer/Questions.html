@@ -49,6 +49,18 @@ function appendQuestion(html, row) {
 	html.push("</div><br /><br />");
 }
 
+function getParameterDict() {
+	var prmstr = window.location.search.substr(1);
+	var prmarr = prmstr.split ("&");
+	var params = {};
+
+	for ( var i = 0; i < prmarr.length; i++) {
+	    var tmparr = prmarr[i].split("=");
+	    params[tmparr[0]] = tmparr[1];
+	}
+	return params;
+}
+
 function showQuestions(data) {
 	var mainbar = document.getElementById("mainbar");
 	var html = [];
@@ -58,25 +70,33 @@ function showQuestions(data) {
 	mainbar.innerHTML = html.join("");	
 }
 
-function showLikelyClosedQuestions() {
-	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"desc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"10"}', function(data) {
+function showLikelyClosedQuestions(numResults) {
+	if (!numResults) {
+		numResults = "10";
+	}
+	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"desc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"' + numResults + '"}', function(data) {
 		showQuestions(data);
 	});	
 }
 
-function showLikelyOpenQuestions() {
-	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"asc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"10"}', function(data) {
+function showLikelyOpenQuestions(numResults) {
+	if (!numResults) {
+		numResults = "10";
+	}
+	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"asc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"' + numResults + '"}', function(data) {
 		showQuestions(data);
 	});	
 }
 
 function updateLocationFromHash() {
+	numResults = getParameterDict().NumResults;
+
 	switch(window.location.hash) {
 		case "#LikelyClosed":
-			showLikelyClosedQuestions();
+			showLikelyClosedQuestions(numResults);
 			break;
 		case "#LikelyOpen":
-			showLikelyOpenQuestions();
+			showLikelyOpenQuestions(numResults);
 			break;
 		default:
 			window.location.hash = "#LikelyClosed";
