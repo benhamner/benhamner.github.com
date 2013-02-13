@@ -90,9 +90,9 @@ function showLikelyOpenQuestions(numResults) {
 
 function updateLocationFromHash() {
 	numResults = getParameterDict().NumResults;
-	hash = window.loocation.hash.slice(0,11);
+	page = window.location.hash.slice(0,11);
 
-	switch(window.location.hash) {
+	switch(page) {
 		case "#LikelyClos":
 			showLikelyClosedQuestions(numResults);
 			break;
