@@ -15,7 +15,8 @@
 	<h2>Show the top questions that a basic production model currently predicts as the most likely to be closed:</h2>
 	<h2>
 	<ul>
-		<li><a id="BothLink" href="#all"> Questions Most Likely to Be Closed </a></li>
+		<li><a href="#LikelyClosed"> Questions Most Likely to Be Closed </a></li>
+		<li><a href="#LikelyOpen"> Questions Most Likely to Be Open </a></li>
 	</ul>
 </h2>
 </p>
@@ -57,25 +58,28 @@ function showQuestions(data) {
 	mainbar.innerHTML = html.join("");	
 }
 
-function showAllQuestions() {
+function showLikelyClosedQuestions() {
 	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"desc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"10"}', function(data) {
+		showQuestions(data);
+	});	
+}
+
+function showLikelyOpenQuestions() {
+	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"asc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"10"}', function(data) {
 		showQuestions(data);
 	});	
 }
 
 function updateLocationFromHash() {
 	switch(window.location.hash) {
-		case "#open":
-			showOpenQuestions();
+		case "#LikelyClosed":
+			showLikelyClosedQuestions();
 			break;
-		case "#closed":
-			showClosedQuestions();
-			break;
-		case "#all":
-			showAllQuestions();
+		case "#LikelyOpen":
+			showLikelyOpenQuestions();
 			break;
 		default:
-			window.location.hash = "#all";
+			window.location.hash = "#LikelyClosed";
 	}
 }
 
