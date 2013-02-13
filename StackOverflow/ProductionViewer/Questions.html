@@ -24,7 +24,7 @@
 	</h2>
 </p>
 <p>
-	Currently analyzing: <div id="NumQuestions">XX</div> questions
+	Currently analyzing: <span id="NumQuestions"></span> questions
 </p>
 <div id="mainbar" class="ask-mainbar">
 </div></div></div>
@@ -101,11 +101,10 @@ function updateLocationFromHash() {
 	numResults = getParameterDict().NumResults;
 	page = window.location.hash.split("?")[0];
 
-	$.getJSON("http://stackapi.benhamner.com/api/eval/questions?q={%22functions%22:[{%22name%22:%22count%22,%22field%22:%22id%22}]}") {
-		function(data) {
+	$.getJSON("http://stackapi.benhamner.com/api/eval/questions?q={%22functions%22:[{%22name%22:%22count%22,%22field%22:%22id%22}]}", function(data) {
 			document.getElementById("NumQuestions").innerHTML=data.count__id;
 		}
-	}
+	);
 
 	switch(page) {
 		case "#LikelyClosed":
