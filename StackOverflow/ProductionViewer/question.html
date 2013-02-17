@@ -8,7 +8,7 @@
         </ul>
     </h2>
     <h2>
-        Currently analyzing: <span id="NumQuestions"></span> questions
+        Currently analyzing: <span id="NumQuestions">{{num_questions}}</span> questions
     </h2>
 </p>
 
@@ -18,7 +18,7 @@
         Title: <strong><a href="http://www.stackoverflow.com/questions/{{question.post_id}}">{{question.title}}</a></strong>
         <br /><br />
         Predicted Close Likelihood: <strong>{{question.close_likelihood}}</strong><br /><br />
-        <div class="wmd-preview" ng-bind-html-unsafe="question.body_html"></div>
+        <div class="post-text" ng-bind-html-unsafe="question.body_html" style="background-color:#ffffcc"></div>
         <br /><br />
     </div>
 </div> 
