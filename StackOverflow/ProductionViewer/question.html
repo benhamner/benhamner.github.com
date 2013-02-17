@@ -3,18 +3,40 @@
     <h2>Show the top questions that a basic production model predicts as the most likely to be open or closed closed:</h2>
     <h2>
         <ul>
-            <li><a href="#LikelyClosed?NumResults=10">Top 10 Questions Most Likely to Be Closed</a> [<a href="#LikelyClosed?NumResults=100">Top 100</a>, <a href="#LikelyClosed?NumResults=1000">Top 1000</a>]</li>
-            <li><a href="#LikelyOpen?NumResults=10">Top 10 Questions Most Likely to Be Open</a>  [<a href="#LikelyOpen?NumResults=100">Top 100</a>, <a href="#LikelyOpen?NumResults=1000">Top 1000</a>]</li>
+            <a href="" ng-click="reverse()">Reverse Sort Order</a>
         </ul>
     </h2>
-    <h2>
-        Currently analyzing: <span id="NumQuestions">{{num_questions}}</span> questions
+    <h2 ng-hide="is_loading">
+        Currently analyzing: {{num_questions}} questions
     </h2>
 </p>
 
+<div id="loading_spinner" ng-show="is_loading" style="display:inline-block;width:100%;height:40px;">
+    <script>
+        var opts = {
+          lines: 13, // The number of lines to draw
+          length: 7, // The length of each line
+          width: 5, // The line thickness
+          radius: 10, // The radius of the inner circle
+          corners: 1, // Corner roundness (0..1)
+          rotate: 0, // The rotation offset
+          color: '#000', // #rgb or #rrggbb
+          speed: 1, // Rounds per second
+          trail: 60, // Afterglow percentage
+          shadow: false, // Whether to render a shadow
+          hwaccel: true, // Whether to use hardware acceleration
+          className: 'spinner', // The CSS class to assign to the spinner
+          zIndex: 2e9, // The z-index (defaults to 2000000000)
+          top: 'auto', // Top position relative to parent in px
+          left: 'auto' // Left position relative to parent in px
+        };
+        var target = document.getElementById('loading_spinner');
+        var spinner = new Spinner(opts).spin(target);
+    </script>
+</div>
+
 <div>
     <div ng-repeat="question in questions">
-        <hr /><br />
         Title: <strong><a href="http://www.stackoverflow.com/questions/{{question.post_id}}">{{question.title}}</a></strong>
         <br /><br />
         Predicted Close Likelihood: <strong>{{question.close_likelihood}}</strong><br /><br />

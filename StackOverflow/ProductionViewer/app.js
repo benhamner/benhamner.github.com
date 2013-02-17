@@ -16,8 +16,6 @@ StackApp.factory('QuestionEval', function($resource) {
     return $resource('http://stackapi.benhamner.com/api/eval/questions');
 });
 
-http://stackapi.benhamner.com/api/eval/questions?q={%22functions%22:[{%22name%22:%22count%22,%22field%22:%22id%22}]}
-
 var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
     $scope.get_num_questions = function() {
         var query = angular.toJson({functions:[{name: "count",
@@ -29,15 +27,30 @@ var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
     }
 
     $scope.update = function() {
-        var query = angular.toJson({order_by:[{field:"close_likelihood", direction:"desc"}],
+        $scope.is_loading = true;
+        $scope.questions = [];
+        var query = angular.toJson({order_by:[{field:"close_likelihood", direction:$scope.direction}],
                                     filters:[{name:"close_likelihood", op:"is_not_null"}],
-                                    limit:10});
+                                    limit:$scope.limit});
         Question.get({q: query},
                      function(questions) { 
-                         $scope.questions = questions.objects; 
+                         $scope.questions = questions.objects;
+                         $scope.is_loading = false; 
                      });
         $scope.get_num_questions();
     }
 
+    $scope.reverse = function() {
+        if ($scope.direction=="desc") {
+            $scope.direction = "asc";
+        } else {
+            $scope.direction = "desc";
+        }
+        $scope.update();
+    }
+
+    $scope.direction = "desc";
+
+    $scope.limit = 10;
     $scope.update();
 };
