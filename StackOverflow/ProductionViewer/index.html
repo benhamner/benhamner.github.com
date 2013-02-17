@@ -1,128 +1,19 @@
-
+<!DOCTYPE html>
+<html ng-app="StackApp" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script src="Javascript/Markdown.Converter.js"></script>
-	<script src="Javascript/Markdown.Sanitizer.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js"></script>
+	<script src="app.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css?v=645537e2c00d">
 </head>
 <body>
 
 
 <div id="container" class="container">
-<div id="content" class="content">
-<p>
-	<h1>Kaggle StackOverflow Competition - Current Production Results</h1>
-	<h2>Show the top questions that a basic production model predicts as the most likely to be open or closed closed:</h2>
-	<h2>
-		<ul>
-			<li><a href="#LikelyClosed?NumResults=10">Top 10 Questions Most Likely to Be Closed</a> [<a href="#LikelyClosed?NumResults=100">Top 100</a>, <a href="#LikelyClosed?NumResults=1000">Top 1000</a>]</li>
-			<li><a href="#LikelyOpen?NumResults=10">Top 10 Questions Most Likely to Be Open</a>  [<a href="#LikelyOpen?NumResults=100">Top 100</a>, <a href="#LikelyOpen?NumResults=1000">Top 1000</a>]</li>
-		</ul>
-	</h2>
-	<h3>
-		Note: this app is currently quick, dirty, proof of concept.
-	</h3>
-	<h2>
-		Currently analyzing: <span id="NumQuestions"></span> questions
-	</h2>
-</p>
-<div id="mainbar" class="ask-mainbar">
-</div></div></div>
-
-<script>
-var converter = new Markdown.getSanitizingConverter();
-document.write("");
-
-function appendQuestion(html, row) {
-	html.push("<hr /><br />")
-	html.push("Title: <strong><a href=\"http://www.stackoverflow.com/questions/");
-	html.push(row.post_id);
-	html.push("\">");
-	html.push(row.title);
-	html.push("</a></strong><br /><br />");
-	/*html.push("Actually: ");
-	if (row.open=="true") {
-		html.push("<strong style='color:green'>Open</strong> (as of 8/14/2012)<br />")
-	}
-	else {
-		html.push("<strong style='color:red'>Closed</strong><br />")
-	}*/
-	html.push("Predicted Close Likelihood (NOT NORMALIZED YET TO PROBABILITY): <strong>");
-	html.push(row.close_likelihood);
-	html.push("</strong><br /><br /><div class=\"wmd-preview\">");
-	//html.push(converter.makeHtml(row.body));
-	html.push(row.body_html)
-	html.push("</div><br /><br />");
-}
-
-function getParameterDict() {
-	var prmstr = window.location.hash.split("?")[1];
-	if (!prmstr) {
-		return {};
-	}
-	var prmarr = prmstr.split ("&");
-	var params = {};
-
-	for ( var i = 0; i < prmarr.length; i++) {
-	    var tmparr = prmarr[i].split("=");
-	    params[tmparr[0]] = tmparr[1];
-	}
-	return params;
-}
-
-function showQuestions(data) {
-	var mainbar = document.getElementById("mainbar");
-	var html = [];
-	for (var i=0; i<data["objects"].length; i++) {	
-		appendQuestion(html, data["objects"][i]);
-	}
-	mainbar.innerHTML = html.join("");	
-}
-
-function showLikelyClosedQuestions(numResults) {
-	if (!numResults) {
-		numResults = "10";
-	}
-	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"desc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"' + numResults + '"}', function(data) {
-		showQuestions(data);
-	});	
-}
-
-function showLikelyOpenQuestions(numResults) {
-	if (!numResults) {
-		numResults = "10";
-	}
-	$.getJSON('http://stackapi.benhamner.com/api/questions?q={"order_by":[{"field":"close_likelihood","direction":"asc"}],"filters":[{"name":"close_likelihood","op":"is_not_null"}],"limit":"' + numResults + '"}', function(data) {
-		showQuestions(data);
-	});	
-}
-
-function updateLocationFromHash() {
-	numResults = getParameterDict().NumResults;
-	page = window.location.hash.split("?")[0];
-
-	$.getJSON("http://stackapi.benhamner.com/api/eval/questions?q={%22functions%22:[{%22name%22:%22count%22,%22field%22:%22id%22}]}", function(data) {
-			document.getElementById("NumQuestions").innerHTML=data.count__id;
-		}
-	);
-
-	switch(page) {
-		case "#LikelyClosed":
-			showLikelyClosedQuestions(numResults);
-			break;
-		case "#LikelyOpen":
-			showLikelyOpenQuestions(numResults);
-			break;
-		default:
-			window.location.hash = "#LikelyClosed";
-	}
-}
-
-$(window).bind('hashchange', function() {
-	updateLocationFromHash();
-});
-
-updateLocationFromHash();
-
-</script>
+	<div id="content" class="content">
+		<div ng-view></div>
+	</div>
+</div>
 </body>
+</html>
