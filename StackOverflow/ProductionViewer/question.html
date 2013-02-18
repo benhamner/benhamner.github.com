@@ -1,17 +1,16 @@
 <p>
-    <h1>Kaggle StackOverflow Competition - Current Production Results</h1>
-    <h2>Show the top questions that a basic production model predicts as the most likely to be open or closed closed:</h2>
-    <h2>
-        <ul>
-            <a href="" ng-click="reverse()">Reverse Sort Order</a>
-        </ul>
-    </h2>
-    <h2 ng-hide="is_loading">
-        Currently analyzing: {{num_questions}} questions
-    </h2>
+    <h2 align="center">Which StackOverflow questions will be closed?</h2><br />
+    <p>This app shows a list of questions that our model predicts as most likely or least likely to be closed. 
+        <span ng-show="first_load">We are currently analyzing
+            <strong>{{num_questions}} questions</strong>.
+        </span>
+    </p>
+    <h3 align="center" ng-show="direction=='desc'"><a href="" ng-click="reverse()">Most Likely To Be Closed</a></h3>
+    <h3 align="center" ng-show="direction=='asc'"><a href="" ng-click="reverse()">Least Likely To Be Closed</a></h3>
+    
 </p>
 
-<div id="loading_spinner" ng-show="is_loading" style="display:inline-block;width:100%;height:40px;">
+<div id="loading_spinner" ng-show="is_loading" style="display:inline-block;width:100%;height:40px;margin-left:auto;margin-right:auto;">
     <script>
         var opts = {
           lines: 13, // The number of lines to draw
@@ -35,12 +34,13 @@
     </script>
 </div>
 
-<div>
-    <div ng-repeat="question in questions">
-        Title: <strong><a href="http://www.stackoverflow.com/questions/{{question.post_id}}">{{question.title}}</a></strong>
-        <br /><br />
-        Predicted Close Likelihood: <strong>{{question.close_likelihood}}</strong><br /><br />
-        <div class="post-text" ng-bind-html-unsafe="question.body_html" style="background-color:#ffffcc"></div>
-        <br /><br />
-    </div>
-</div> 
+<accordion close-others="false">    
+    <accordion-group heading="{{question.title}}" ng-repeat="question in questions">
+        <div style="width:100%;background-color:#eee;">
+            <a href="http://www.stackoverflow.com/questions/{{question.post_id}}">Stack Overflow Link</a>
+            <div style="display:inline-block;position:absolute;right:15px;">Predicted Close Likelihood: <strong>{{question.close_likelihood}}</strong></div><br />
+        </div>
+        <br />
+        <div class="post-text" ng-bind-html-unsafe="question.body_html"></div>
+    </accordion-group>
+</accordian>

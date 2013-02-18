@@ -1,4 +1,4 @@
-var StackApp = angular.module("StackApp", ["ngResource"])
+var StackApp = angular.module("StackApp", ["ngResource", "ui.bootstrap"])
     .config(function($routeProvider) {
         $routeProvider.
             when('/', { controller: QuestionCtrl, templateUrl: 'question.html' }).
@@ -23,6 +23,7 @@ var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
         QuestionEval.get({q: query}, 
                          function(res) {
                              $scope.num_questions = res.count__id;
+                             $scope.first_load = true;
                          });
     }
 
@@ -35,7 +36,7 @@ var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
         Question.get({q: query},
                      function(questions) { 
                          $scope.questions = questions.objects;
-                         $scope.is_loading = false; 
+                         $scope.is_loading = false;
                      });
         $scope.get_num_questions();
     }
@@ -50,7 +51,8 @@ var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
     }
 
     $scope.direction = "desc";
+    $scope.limit = 30;
+    $scope.first_load = false;
 
-    $scope.limit = 10;
     $scope.update();
 };
