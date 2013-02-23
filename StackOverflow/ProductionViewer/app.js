@@ -29,13 +29,30 @@ var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
 
     $scope.update = function() {
         $scope.is_loading = true;
+        $scope.offset = 0;
         $scope.questions = [];
-        var query = angular.toJson({order_by:[{field:"close_likelihood", direction:$scope.direction}],
-                                    filters:[{name:"close_likelihood", op:"is_not_null"}],
-                                    limit:$scope.limit});
+        var query = angular.toJson({order_by: [{field:"close_likelihood", direction:$scope.direction}],
+                                    filters:  [{name:"close_likelihood", op:"is_not_null"}],
+                                    limit:    $scope.limit,
+                                    offset:   $scope.offset});
         Question.get({q: query},
                      function(questions) { 
                          $scope.questions = questions.objects;
+                         $scope.is_loading = false;
+                     });
+        $scope.get_num_questions();
+    }
+
+    $scope.show_more = function() {
+        $scope.is_loading = true;
+        $scope.offset += $scope.limit;
+        var query = angular.toJson({order_by: [{field:"close_likelihood", direction:$scope.direction}],
+                                    filters:  [{name:"close_likelihood", op:"is_not_null"}],
+                                    limit:    $scope.limit,
+                                    offset:   $scope.offset});
+        Question.get({q: query},
+                     function(questions) { 
+                         $scope.questions = $scope.questions.concat(questions.objects);
                          $scope.is_loading = false;
                      });
         $scope.get_num_questions();
@@ -51,7 +68,8 @@ var QuestionCtrl = function($scope, $location, Question, QuestionEval) {
     }
 
     $scope.direction = "desc";
-    $scope.limit = 30;
+    $scope.limit = 20;
+    $scope.offset = 0;
     $scope.first_load = false;
 
     $scope.update();

@@ -10,6 +10,17 @@
     
 </p>
 
+<accordion close-others="false">    
+    <accordion-group heading="{{question.title}}" ng-repeat="question in questions">
+        <div style="width:100%;background-color:#eee;">
+            <a href="http://www.stackoverflow.com/questions/{{question.post_id}}">Stack Overflow Link</a>
+            <div style="display:inline-block;position:absolute;right:15px;">Predicted Close Likelihood: <strong>{{question.close_likelihood}}</strong></div><br />
+        </div>
+        <br />
+        <div class="post-text" ng-bind-html-unsafe="question.body_html"></div>
+    </accordion-group>
+</accordian>
+
 <div id="loading_spinner" ng-show="is_loading" style="display:inline-block;width:100%;height:40px;margin-left:auto;margin-right:auto;">
     <script>
         var opts = {
@@ -34,13 +45,4 @@
     </script>
 </div>
 
-<accordion close-others="false">    
-    <accordion-group heading="{{question.title}}" ng-repeat="question in questions">
-        <div style="width:100%;background-color:#eee;">
-            <a href="http://www.stackoverflow.com/questions/{{question.post_id}}">Stack Overflow Link</a>
-            <div style="display:inline-block;position:absolute;right:15px;">Predicted Close Likelihood: <strong>{{question.close_likelihood}}</strong></div><br />
-        </div>
-        <br />
-        <div class="post-text" ng-bind-html-unsafe="question.body_html"></div>
-    </accordion-group>
-</accordian>
+<h3 align="center"><a href="" ng-click="show_more()">Show More</a></h3>
