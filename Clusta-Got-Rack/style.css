@@ -1,0 +1,46 @@
+body {
+    background: #efefef;
+    font: 1.4em 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+section {
+     margin-bottom: 35px;
+     padding: 30px;
+     background-color: #fefefe;
+     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+     border-radius: 10px;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#subtitle {
+    font-size: 0.8em;
+    text-align: center;
+    position: relative;
+    margin-top: -15px;
+}
+
+#tweet {
+    text-align: center;
+}
+
+#content {
+    line-height: 120%;
+    margin: auto;
+    width: 700px;
+}
+
+#footnote {
+    text-align: left;
+    width: 80%;
+    margin: 0px auto;
+    font-size: 0.75em;
+    line-height: 100%;
+}
