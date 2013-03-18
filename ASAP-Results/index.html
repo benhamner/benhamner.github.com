@@ -11,7 +11,13 @@
         <h1>The Computer Graded My Essay</h1>
         <h2>And It Did Just As Well As My Teacher</h2>
         <p style="text-align:left;">Over the past year, the Hewlett Foundation hosted two competitions designed to evaluate the state of the art in scoring freeform student answers. These two studies were designed as follows ....</p>
-        <div id='chart'></div>
+         <div>
+            <select id="asap-aes-human-machine-rater-comparison-metric">
+             <option value="correlation">correlation</option>
+             <option value="exact">exact agreement</option>
+             <option value="adjacent">adjacent agreement</option>
+           </select></div>
+        <div id='chart'><svg></svg></div>
         <p style="text-align:left;font-color:#ccc;">
             <em>The views presented here are the author's own. They do not reflect ...</em>
         </p>
