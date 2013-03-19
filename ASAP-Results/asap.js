@@ -22,32 +22,68 @@ function rowsToColumns(rows) {
     return columns;
 }
 
-function createGraph(data) {
-  var columns = Object.keys(data[0]);
-  var chart = nv.models.multiBarChart()
-      .showControls(false)
-      .reduceXTicks(false);
+function createGraph(data, yName) {
+    $("#chart")[0].innerHTML="";
 
-  nv.addGraph(function() {
+    var n = data[0]["values"].length, // number of samples
+        m = data.length;              // number of series
 
-    chart.yAxis
-        .scale(d3.scale.linear().range([0,1]))
-        .tickFormat(d3.format(',.2f'));
+    var w = 680,
+        h = 420,
+        y = d3.scale.linear().domain([0, 1]).range([h, 0]),
+        x0 = d3.scale.ordinal().domain(data[0].values.map(function(d) {return d.x;})).rangeBands([0, w], .2),
+        x1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, x0.rangeBand()]),
+        z = d3.scale.category10();
 
-    d3.select('#chart svg')
-        .datum(data)
-      .transition().duration(1).call(chart);
+    var vis = d3.select("#chart")
+      .append("svg:svg")
+        .attr("width", w + 120)
+        .attr("height", h + 40)
+      .append("svg:g")
+        .attr("transform", "translate(60,20)");
 
-    nv.utils.windowResize(chart.update);
-    window.chart = chart;
-    return chart;
-  });
-}
+    var xAxis = d3.svg.axis()
+        .scale(x0)
+        .orient("bottom");
 
-function updateGraph(data) {
-    d3.select('#chart svg')
-        .datum(data)
-      .transition().duration(1).call(chart);
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    vis.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0,"+h+")")
+      .call(xAxis);
+
+    vis.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+     .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -50)
+      .attr("x", -h/2)
+      .attr("dy", ".71em")
+      .style("text-anchor", "center")
+      .text(yName);
+
+    vis.selectAll(".y line")
+      .attr("x2", w);
+
+    var g = vis.selectAll("g barseries")
+        .data(data)
+      .enter().append("svg:g")
+        .attr("fill", function(d, i) { return z(i); })
+        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; });
+
+    var rect = g.selectAll("rect")
+        .data(function(d) {return d.values;})
+      .enter().append("svg:rect")
+        .attr("transform", function(d) { return "translate(" + x0(d.x) + ",0)"; })
+        .attr("width", x1.rangeBand())
+        .attr("height", function(d) { return h-y(d.y);})
+        .attr("y", function(d) { return y(d.y); })
+        .attr("opacity", 0.9);
+
 }
 
 function pairToXY(pair) {
@@ -109,10 +145,11 @@ function getDataForGraph(rows, stat_function) {
 d3.csv("asap-aes-results.csv", function(rows) {
     window.rows = rows;
     dataForGraph = getDataForGraph(rows, jStat.corrcoeff);
-    createGraph(dataForGraph);
+    window.dataForGraph = dataForGraph;
+    createGraph(dataForGraph, "Correlation");
 });
 
 d3.select("#asap-aes-human-machine-rater-comparison-metric").on("change", function() {
   dataForGraph = getDataForGraph(rows, agreement_functions[this.value]);
-  updateGraph(dataForGraph);
+  createGraph(dataForGraph, this.options[this.selectedIndex].text);
 });
