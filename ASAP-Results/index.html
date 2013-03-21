@@ -8,6 +8,22 @@
       stroke: #000;
       shape-rendering: crispEdges;
     }
+
+    a           { color: #00e; text-decoration:none; }
+    a:visited   { color: #551a8b; text-decoration:none; }
+    a:hover     { color: #06e; text-decoration:none; }
+    a:focus     { outline: thin dotted; text-decoration:none; }
+    a:hover, a:active { outline: 0; text-decoration:none; }
+
+    body { background:#e6ecf0; }
+
+    p {
+        text-align:left;
+    }
+
+    p.disclaimer {
+        font-color:#ccc;
+    }
     </style>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -17,11 +33,16 @@
     <script src="nv.d3.js"></script>
 </head>
 
-<body bgcolor="#e5e5e5">
+<body>
     <div id="content" style="width:800px;margin:auto;text-align:center;">
         <h1>The Computer Graded My Essay</h1>
         <h2>And It Did Just As Well As My Teacher</h2>
-        <p style="text-align:left;">Over the past year, the Hewlett Foundation hosted two competitions designed to evaluate the state of the art in scoring freeform student answers. These two studies were designed as follows ....</p>
+        <p>Over the past year, the Hewlett Foundation sponsored two competitions designed to evaluate the state of the art in scoring written student responses. The <a href="http://www.kaggle.com/c/asap-aes">automated essay scoring contest</a> focused on essay-length student responses and the <a href="http://www.kaggle.com/c/asap-sas">short answer scoring contest</a> focused on shorter responses. In these contests, machine learning and computer science experts from around the world created software and methods to automatically score the student responses. They were evaluated based on how closely they matched the human grades each. 
+        </p>
+        <h2>Results</h2>
+        <p>
+            The graph below compares human and machine performance on several metrics. For each of these, the human column refers to the agreement between the first human rater and the second human rater. Since the algorithms targeted the combined score for the essay (instead of the same scale as the human raters), a machine rater was approximated by converting the algorithmic predictions to be on the same scale as the human ratings. The machine column refers to the average of the agreement between this machine rater and each of the two human raters.
+        </p>
          <div>
             <select id="asap-aes-human-machine-rater-comparison-metric">
              <option value="correlation">correlation</option>
@@ -29,8 +50,9 @@
              <option value="adjacent">adjacent agreement</option>
            </select></div>
         <div id='chart' style="height:500px;margin:auto;text-align:center;"></div>
-        <p style="text-align:left;font-color:#ccc;">
-            <em>The views presented here are the author's own. They do not reflect ...</em>
+        <p><b>Thanks</b> to X,Y,Z for reading drafts of this.</p>
+        <p class="disclaimer">
+            <em>Disclaimer: the views presented here are the author's own. They do not reflect necessarily reflect those of Kaggle, the Hewlett Foundation, or any other parties involved in the design and execution of this study.</em>
         </p>
     </div>
     <script src="asap.js"></script>

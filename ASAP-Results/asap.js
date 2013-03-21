@@ -53,7 +53,13 @@ function createGraph(data, yName) {
     vis.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0,"+h+")")
-      .call(xAxis);
+      .call(xAxis)
+     .append("text")
+      .attr("y", 30)
+      .attr("x", w/2-28)
+      .attr("dy", ".71em")
+      .style("text-anchor", "center")
+      .text("Essay Set");
 
     vis.append("g")
       .attr("class", "y axis")
@@ -72,7 +78,7 @@ function createGraph(data, yName) {
     var g = vis.selectAll("g barseries")
         .data(data)
       .enter().append("svg:g")
-        .attr("fill", function(d, i) { return z(i); })
+        .attr("fill", function(d, i) { var c=z(i*2); z(i+1); return c; })
         .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; });
 
     var rect = g.selectAll("rect")
@@ -83,6 +89,25 @@ function createGraph(data, yName) {
         .attr("height", function(d) { return h-y(d.y);})
         .attr("y", function(d) { return y(d.y); })
         .attr("opacity", 0.9);
+
+    var legend = vis.selectAll(".legend")
+        .data(data)
+      .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { var y=i*20+3; return "translate(0," + y + ")"; });
+    
+    legend.append("rect")
+        .attr("x", w - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d, i) { return z(i*2);});
+    
+    legend.append("text")
+        .attr("x", w - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d.key; });
 
 }
 
@@ -102,6 +127,10 @@ function calculate_statistic(rows, col1, col2, stat_function) {
         var columns = rowsToColumns(data_by_essay_set[essay_set]);
         return [essay_set, stat_function(columns[col1], columns[col2])];
     }));
+}
+
+function average_statistic(stat1, stat2) {
+    return _.object(_.keys(stat1).map(function(key) { return [key, (stat1[key]+stat2[key])/2.0]}));
 }
 
 function exact(a, b) {
@@ -132,11 +161,12 @@ function getDataForGraph(rows, stat_function) {
     human_human_correlation = calculate_statistic(rows, "rater1", "rater2", stat_function);
     human1_machine_correlation = calculate_statistic(rows, "winning_rater", "rater1", stat_function);
     human2_machine_correlation = calculate_statistic(rows, "rater2", "winning_rater", stat_function);
+    human_machine_correlation = average_statistic(human1_machine_correlation, human2_machine_correlation);
+
     max_correlation = calculate_statistic(rows, "rater1", "human_average_rater", stat_function);
 
-    data_for_graph = [{"key": "Human 1 - Human2", "values": _.pairs(human_human_correlation).sort(function(a,b) {return a[0]>b[0];}).map(pairToXY)},
-                      {"key": "Human 1 - Machine", "values": _.pairs(human1_machine_correlation).sort(function(a,b) {return a[0]>b[0];}).map(pairToXY)},
-                      {"key": "Human 2 - Machine", "values": _.pairs(human2_machine_correlation).sort(function(a,b) {return a[0]>b[0];}).map(pairToXY)}];
+    data_for_graph = [{"key": "Human", "values": _.pairs(human_human_correlation).sort(function(a,b) {return a[0]>b[0];}).map(pairToXY)},
+                      {"key": "Machine", "values": _.pairs(human_machine_correlation).sort(function(a,b) {return a[0]>b[0];}).map(pairToXY)}];
     window.data_for_graph = data_for_graph;
 
     return data_for_graph;
