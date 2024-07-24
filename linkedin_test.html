@@ -3,55 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkedIn Browser Detection</title>
+    <title>LinkedIn Browser Test</title>
+    <meta name="apple-itunes-app" content="app-id=288429040, app-argument=https://example.com">
+    <script>
+        function isLinkedInBrowser() {
+            var userAgent = navigator.userAgent.toLowerCase();
+            return userAgent.indexOf('linkedin') > -1;
+        }
+
+        function redirectToDefaultBrowser() {
+            if (isLinkedInBrowser()) {
+                if (/android/i.test(navigator.userAgent)) {
+                    // For Android
+                    window.location.href = 'intent://example.com#Intent;scheme=https;package=com.android.chrome;end';
+                } else {
+                    // For iOS and others
+                    window.location.href = 'https://example.com';
+                }
+            }
+        }
+
+        // Run the redirect function when the page loads
+        window.onload = redirectToDefaultBrowser;
+    </script>
 </head>
 <body>
-    <div id="root"></div>
+    <h1>LinkedIn Browser Test</h1>
+    <p id="browser-info"></p>
+    <button onclick="redirectToDefaultBrowser()">Open in Default Browser</button>
 
-    <!-- React and ReactDOM from CDN -->
-    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-    <!-- Babel for JSX transformation -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
-
-    <script type="text/babel">
-        const { useEffect } = React;
-
-        const useLinkedInRedirect = () => {
-            useEffect(() => {
-                const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-                // Check if the user agent contains 'LinkedInApp'
-                if (userAgent.indexOf('LinkedInApp') > -1) {
-                    const url = window.location.href;
-                    
-                    // Create a temporary link element
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.target = '_blank';
-                    
-                    // Simulate a click on the link
-                    document.body.appendChild(link);
-                    link.click();
-                    
-                    // Remove the link element
-                    document.body.removeChild(link);
-                }
-            }, []);
-        };
-
-        const MyComponent = () => {
-            useLinkedInRedirect();
-
-            return (
-                <div>
-                    <h1>Welcome to My Website</h1>
-                    <p>This page will redirect if viewed in LinkedIn's in-app browser.</p>
-                </div>
-            );
-        };
-
-        ReactDOM.render(<MyComponent />, document.getElementById('root'));
+    <script>
+        // Display user agent information for debugging
+        document.getElementById('browser-info').textContent = 'User Agent: ' + navigator.userAgent;
     </script>
 </body>
 </html>
